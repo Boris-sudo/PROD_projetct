@@ -49,6 +49,6 @@ export class TopBarComponent implements OnInit {
   }
 
   navigate(url: string) {
-    this.router.navigate([url]);
+    this.router.navigate([url]).then();
   }
 }

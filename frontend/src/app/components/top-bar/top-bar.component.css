@@ -83,19 +83,21 @@
 
 .nav {
   display:        flex;
-  margin-top: 20px;
+  margin-top:     20px;
   flex-direction: column;
 }
+
 .link {
-  display: flex;
-  flex-direction: row;
+  display:         flex;
+  flex-direction:  row;
   justify-content: space-between;
 }
 
 .link-arrow {
-  margin-right: 15px;
+  margin-right:        15px;
   transition-duration: .3s;
 }
+
 .link:hover .link-arrow {
   transform: translateX(10px);
 }
