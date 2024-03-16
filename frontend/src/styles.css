@@ -1,1 +1,67 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Raleway");
+@import url("https://fonts.googleapis.com/css2?family=Goldman");
+@import url("https://fonts.googleapis.com/css2?family=Rubik");
+
+html, body {
+  width:           100vw;
+  min-height:      100vh;
+  scroll-behavior: smooth;
+  overflow-y:      hidden;
+  overflow-x:      hidden;
+  color:           var(--text-white)
+}
+
+body {
+  background-color: var(--background-light);
+  display:          flex;
+  flex-wrap:        wrap;
+  overflow-y:       scroll;
+  position:         relative;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+  width:   0;
+}
+
+* {
+  line-height: 100%;
+  box-sizing:  border-box;
+  margin:      0;
+  padding:     0;
+  caret-color: transparent;
+  font-family: "Raleway", sans-serif;
+}
+
+input {
+  caret-color: #fff;
+}
+
+li {
+  list-style-type: none;
+  display:         inline-block;
+}
+
+input, button {
+  outline-offset: 0;
+  outline:        0;
+}
+
+img {
+  -moz-user-select:    none;
+  -webkit-user-select: none;
+  user-select:         none;
+  pointer-events:      none;
+}
+
+body {
+  --f-raleway:        "Raleway", sans-serif;
+  --f-rubik:          "Rubik", sans-serif;
+  --top-bar-height:   70px;
+
+  --text-white:       #000000;
+  --background-light: #c0caef;
+  --background-menu:  #9ba3be;
+
+  --max-size:         1440px;
+}
