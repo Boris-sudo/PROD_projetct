@@ -24,11 +24,21 @@
 
     <nav class="nav">
       <div (click)="navigate(link.url)" class="link" *ngFor="let link of top_bar_links">
-        <p>{{link.name}}</p>
+        <p>{{ link.name }}</p>
         <svg class="link-arrow" width="30" height="30"
           viewBox="0 0 24 24"><path d="M17 12c0 .2-.06.4-.17.55l-5 7.5c-.18.27-.48.45-.83.45H8c-.55 0-1-.45-1-1 0-.2.06-.4.17-.55L11.8 12 7.17 5.05A.944.944 0 0 1 7 4.5c0-.55.45-1 1-1h3c.35 0 .65.18.83.45l5 7.5c.11.15.17.35.17.55z"/></svg>
       </div>
     </nav>
+
+    <div class="data-chose">
+      <svg (click)="prev_day()" style="transform: rotate(180deg);" width="30" height="30" viewBox="0 0 24 24"><path
+        d="M14.5 22a.5.5 0 0 1-.5-.5V16H.5a.5.5 0 0 1-.5-.5v-7A.5.5 0 0 1 .5 8H14V2.5a.5.5 0 0 1 .863-.343l9 9.5a.5.5 0 0 1 0 .688l-9 9.5A.504.504 0 0 1 14.5 22zM1 15h13.5a.5.5 0 0 1 .5.5v4.745L22.812 12 15 3.755V8.5a.5.5 0 0 1-.5.5H1z"/></svg>
+      <span>
+        <input (change)="chose_date()" id="current-data-input" type="date" class="data-input">
+      </span>
+      <svg (click)="next_day()" width="30" height="30" viewBox="0 0 24 24"><path
+        d="M14.5 22a.5.5 0 0 1-.5-.5V16H.5a.5.5 0 0 1-.5-.5v-7A.5.5 0 0 1 .5 8H14V2.5a.5.5 0 0 1 .863-.343l9 9.5a.5.5 0 0 1 0 .688l-9 9.5A.504.504 0 0 1 14.5 22zM1 15h13.5a.5.5 0 0 1 .5.5v4.745L22.812 12 15 3.755V8.5a.5.5 0 0 1-.5.5H1z"/></svg>
+    </div>
   </div>
 
   <div id="menu-background" class="dark-background" (click)="close_menu()"></div>
