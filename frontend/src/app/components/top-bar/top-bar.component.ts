@@ -14,7 +14,7 @@ interface TopBarLink {
 })
 export class TopBarComponent implements OnInit, AfterViewInit {
   public top_bar_links: TopBarLink[] = [
-    {name: 'add habit', url: 'add'},
+    {name: 'habits', url: 'habits'},
   ]
 
   constructor(

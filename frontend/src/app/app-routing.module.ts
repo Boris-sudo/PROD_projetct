@@ -5,7 +5,7 @@ import {AddHabitPageComponent} from "./components/add-habit-page/add-habit-page.
 
 const routes: Routes = [
   {path: '', component: MainPageComponent},
-  {path: 'add', component: AddHabitPageComponent},
+  {path: 'habits', component: AddHabitPageComponent},
 ];
 
 @NgModule({
