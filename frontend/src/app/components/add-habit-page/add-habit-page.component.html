@@ -1,1 +1,32 @@
-<p>add-habit-page works!</p>
+<main class="main">
+  <div class="top">
+    <button (click)="navigateBack()" class="cta">
+      <svg width="15px" height="10px" viewBox="0 0 13 10">
+        <path d="M1,5 L11,5"></path>
+        <polyline points="8 1 12 5 8 9"></polyline>
+      </svg>
+      <span>Back</span>
+    </button>
+    <button (click)="open_habit_menu()" class="cta cta-reverse">
+      <span>Add habit</span>
+    </button>
+  </div>
+
+  <div id="add-habit-menu" class="add-habit-menu">
+    <div class="top top-habit-menu">
+      <p>Add habit and control it</p>
+      <div (click)="close_habit_menu()">
+        <svg width="20" height="20"
+          viewBox="0 0 24 24"><path d="m13.414 12 6.01-6.01a.999.999 0 1 0-1.414-1.414L12 10.586l-6.01-6.01A.999.999 0 1 0 4.576 5.99l6.01 6.01-6.01 6.01a.999.999 0 1 0 1.414 1.414l6.01-6.01 6.01 6.01a.997.997 0 0 0 1.414 0 .999.999 0 0 0 0-1.414L13.414 12z"/></svg>
+      </div>
+    </div>
+
+    <form class="habit-form">
+      <label>
+        <p>Выбрать шаблон</p>
+        <select>
+        </select>
+      </label>
+    </form>
+  </div>
+</main>
