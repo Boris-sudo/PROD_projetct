@@ -57,6 +57,7 @@ export class TopBarComponent implements OnInit, AfterViewInit {
 
   navigate(url: string) {
     this.router.navigate([url]).then();
+    this.close_menu();
   }
 
   chose_date() {
