@@ -57,11 +57,12 @@ img {
 body {
   --f-raleway:        "Raleway", sans-serif;
   --f-rubik:          "Rubik", sans-serif;
-  --top-bar-height:   70px;
+  --f-ubuntu:         "Ubuntu", sans-serif;
 
   --text-white:       #000000;
   --background-light: #c0caef;
   --background-menu:  #9ba3be;
 
   --max-size:         1440px;
+  --top-bar-height:   70px;
 }
