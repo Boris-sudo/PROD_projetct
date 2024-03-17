@@ -12,7 +12,7 @@
   padding:         0 10px;
   width:           100%;
   border-radius:   10px;
-  max-width:       var(--max-size);
+  max-width:       var(--max-window-width);
   background:      #fff;
   color:           #000;
   display:         flex;
@@ -32,7 +32,7 @@
   grid-column-gap: 5px;
   font-size:       20px;
   font-weight:     900;
-  font-family:     var(--f-ubuntu);
+  font-family:     var(--ff-ubuntu);
 }
 
 .menu-opener {
@@ -114,7 +114,7 @@
 }
 
 .data-input {
-  font-family:   var(--f-rubik);
+  font-family:   var(--ff-rubik);
   border:        1px solid #999;
   padding:       5px 10px;
   border-radius: 5px;

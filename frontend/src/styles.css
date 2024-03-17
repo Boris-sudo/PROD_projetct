@@ -8,7 +8,7 @@ html, body {
   scroll-behavior: smooth;
   overflow-y:      hidden;
   overflow-x:      hidden;
-  color:           var(--text-white)
+  color:           var(--text-black)
 }
 
 body {
@@ -30,11 +30,11 @@ body {
   margin:      0;
   padding:     0;
   caret-color: transparent;
-  font-family: "Raleway", sans-serif;
+  font-family: var(--ff-raleway);
 }
 
 input {
-  caret-color: #fff;
+  caret-color: var(--caret-color);
 }
 
 li {
@@ -55,14 +55,19 @@ img {
 }
 
 body {
-  --f-raleway:        "Raleway", sans-serif;
-  --f-rubik:          "Rubik", sans-serif;
-  --f-ubuntu:         "Ubuntu", sans-serif;
+  --ff-raleway:        "Raleway", sans-serif;
+  --ff-rubik:          "Rubik", sans-serif;
+  --ff-ubuntu:         "Ubuntu", sans-serif;
 
-  --text-white:       #000000;
+  --text-black:       #000000;
   --background-light: #c0caef;
+  --background-white: #ffffff;
   --background-menu:  #9ba3be;
+  --border-gray:      #999999;
+  --svg-blue-light:   #b1dae7;
+  --svg-blue-dark:    #234567;
+  --caret-color:      #ffffff;
 
-  --max-size:         1440px;
+  --max-window-width: 1440px;
   --top-bar-height:   70px;
 }
