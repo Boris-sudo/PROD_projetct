@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {CurrentDateService} from "../../services/current-date.service";
-import {links} from "../../app-routing.module";
+import {navBarLinks} from "../../app-routing.module";
 
 @Component({
   selector: 'app-top-bar',
@@ -9,7 +9,7 @@ import {links} from "../../app-routing.module";
   styleUrls: ['./top-bar.component.css']
 })
 export class TopBarComponent implements OnInit, AfterViewInit {
-  public top_bar_links = links;
+  public top_bar_links = navBarLinks;
 
   constructor(
     private router: Router,

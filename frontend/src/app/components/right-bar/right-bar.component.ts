@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Router, withDebugTracing} from "@angular/router";
 import {CurrentDateService} from "../../services/current-date.service";
-import {links} from "../../app-routing.module";
+import {navBarLinks} from "../../app-routing.module";
 
 @Component({
   selector: 'app-right-bar',
@@ -9,7 +9,7 @@ import {links} from "../../app-routing.module";
   styleUrls: ['./right-bar.component.css']
 })
 export class RightBarComponent implements OnInit, AfterViewInit {
-  public right_bar_links = links;
+  public right_bar_links = navBarLinks;
 
 
   constructor(

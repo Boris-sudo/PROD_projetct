@@ -8,11 +8,11 @@ const routes: Routes = [
   {path: 'habits', component: AddHabitPageComponent},
 ];
 
-export interface Link {
+export interface NavBarLink {
   name: string;
   url: string;
 }
-export const links: Link[] = [
+export const navBarLinks: NavBarLink[] = [
   {name: 'habits', url: 'habits'},
 ]
 
