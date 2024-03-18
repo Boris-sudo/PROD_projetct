@@ -8,6 +8,14 @@ const routes: Routes = [
   {path: 'habits', component: AddHabitPageComponent},
 ];
 
+export interface Link {
+  name: string;
+  url: string;
+}
+export const links: Link[] = [
+  {name: 'habits', url: 'habits'},
+]
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

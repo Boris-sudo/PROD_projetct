@@ -7,13 +7,15 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { AddHabitPageComponent } from './components/add-habit-page/add-habit-page.component';
 import {FormsModule} from "@angular/forms";
+import { RightBarComponent } from './components/right-bar/right-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
     TopBarComponent,
-    AddHabitPageComponent
+    AddHabitPageComponent,
+    RightBarComponent
   ],
   imports: [
     BrowserModule,
