@@ -1,0 +1,89 @@
+.menu {
+  width:               var(--right-bar-menu-width);
+  height:              100vh;
+  flex-direction:      column;
+  background:          var(--background-white);
+  transition-duration: .5s;
+  z-index:             901;
+  padding:             10px 0 0 20px;
+  position:            relative;
+}
+
+.menu.opened {
+  right: 0;
+}
+
+.menu-top {
+  display:         flex;
+  justify-content: space-between;
+  flex-direction:  row;
+
+  width:           100%;
+}
+
+.nav {
+  display:        flex;
+  margin-top:     40px;
+  flex-direction: column;
+}
+
+.link {
+  cursor: pointer;
+  --padding-top:   15px;
+  --padding-right: 20px;
+  display:         flex;
+  flex-direction:  row;
+  justify-content: space-between;
+  align-items:     center;
+  align-content:   center;
+  font-size:       20px;
+  width:           100%;
+  padding:         var(--padding-top) 0 var(--padding-top) var(--padding-right);
+  background:      transparent;
+  border-radius:   10px;
+}
+
+.nav-background {
+  height:              50px;
+  width:               100%;
+  border-radius:       10px 0 0 10px;
+  --margin-right:      0px !important;
+  background:          var(--background-light);
+  opacity:             0;
+  transition-duration: .5s;
+  display: none;
+  position: absolute;
+  z-index: -1;
+}
+
+.data-chose {
+  width:           100%;
+  display:         flex;
+  justify-content: space-around;
+  align-items:     center;
+  align-content:   center;
+  position:        absolute;
+  left:            0;
+  bottom:          10px;
+  caret-color:     transparent !important;
+}
+
+.data-input {
+  font-family:   var(--ff-rubik);
+  border:        1px solid #999999;
+  padding:       5px 10px;
+  border-radius: 5px;
+}
+
+.logo {
+  cursor:          pointer;
+  flex-direction:  row;
+  font-size:       21px;
+  align-items:     center;
+  align-content:   center;
+  justify-content: center;
+  display:         flex;
+  grid-column-gap: 5px;
+  font-weight:     900;
+  font-family:     var(--ff-ubuntu);
+}
