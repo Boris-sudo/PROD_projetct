@@ -10,8 +10,8 @@
 .top {
   display:         flex;
   justify-content: space-between;
-  align-items: center;
-  align-content: center;
+  align-items:     center;
+  align-content:   center;
 }
 
 .cta {
@@ -31,7 +31,7 @@
   right:         0;
   display:       block;
   border-radius: 50px;
-  background:    #b1dae7;
+  background:    var(--svg-blue-light);
   width:         45px;
   height:        45px;
   transition:    all 0.3s ease;
@@ -39,11 +39,11 @@
 
 .cta span {
   position:       relative;
-  font-family:    var(--f-ubuntu);
+  font-family:    var(--ff-ubuntu);
   font-size:      18px;
   font-weight:    700;
   letter-spacing: 0.05em;
-  color:          #234567;
+  color:          var(--svg-blue-dark);
 }
 
 .cta-reverse:before {
@@ -57,7 +57,7 @@
   fill:            none;
   stroke-linecap:  round;
   stroke-linejoin: round;
-  stroke:          #234567;
+  stroke:          var(--svg-blue-dark);
   stroke-width:    2;
   transform:       rotate(180deg) translateX(0px);
   transition:      all 0.3s ease;
@@ -65,7 +65,7 @@
 
 .cta:hover:before {
   width:      100%;
-  background: #b1dae7;
+  background: var(--svg-blue-light);
 }
 
 .cta:hover svg {
@@ -77,19 +77,20 @@
 }
 
 .add-habit-menu {
-  border-radius: 10px;
+  border-radius:       10px;
   position:            absolute;
-  width:               400px;
-  max-width:           100%;
-  height:              fit-content;
-  min-height:          500px;
-  background:          #fff;
+  width:               var(--add-habit-menu-width);
+  height:              var(--add-habit-menu-height);
+  max-width:           calc(100% - 20px);
+  background:          var(--background-white);
   display:             none;
+  flex-direction:      column;
   top:                 42.33px;
   left:                50%;
   transform:           translate(-50%);
   opacity:             0;
   transition-duration: .3s;
+  padding:             0 10px;
 }
 
 .add-habit-menu.show {
@@ -97,6 +98,153 @@
 }
 
 .top-habit-menu {
-  padding: 10px;
-  font-weight: 600;
+  padding:     10px 0 20px 0;
+  font-weight: 800;
+  font-size:   20px;
+}
+
+.add-habit-table {
+  width:          100%;
+  display:        flex;
+  grid-row-gap:   5px;
+  flex-direction: column;
+}
+
+.table-tr-name {
+  width:       100%;
+  font-family: var(--ff-ubuntu);
+  font-weight: 440;
+}
+
+.table-tr-input .input {
+  width:         var(--add-habit-input-width);
+  height:        var(--add-habit-input-height);
+  padding:       5px 10px;
+  font-size:     15px;
+  font-family:   var(--ff-ubuntu);
+  border:        1px solid var(--border-gray);
+  border-radius: 7px;
+}
+
+.table-tr-input {
+  position: relative;
+}
+
+.dropdown-menu {
+  position:       absolute;
+  top:            calc(var(--add-habit-input-height) + 5px);
+  right:          0;
+  width:          var(--add-habit-dropdown-menu-width);
+  border-radius:  5px;
+  display:        none;
+  flex-direction: column;
+  grid-row-gap:   10px;
+  padding:        10px 5px;
+
+  --tw-shadow:    0px 5px 18px 0px rgba(0, 0, 0, 0.2);
+  box-shadow:     var(--tw-shadow);
+}
+
+.dropdown-menu .item {
+  width: 100%;
+}
+
+.dropdown-menu__top {
+  display:         flex;
+  justify-content: space-around;
+  flex-direction:  row;
+  align-items:     center;
+  align-content:   center;
+}
+
+.button {
+  width:  100%;
+  cursor: pointer;
+}
+
+.dropdown-menu__submit {
+  display:         flex;
+  flex-direction:  row;
+  grid-column-gap: 10px;
+}
+
+.dropdown-menu__submit .button {
+  font-size:     18px;
+  padding:       3px 0;
+  border-radius: 5px;
+}
+
+.cancel-button {
+  background: transparent;
+  border:     1px solid var(--dropdorw-button-gray);
+  color:      var(--dropdorw-button-gray);
+}
+
+.ok-button {
+  border:     1px solid var(--dropdorw-button-blue);
+  background: var(--dropdorw-button-blue);
+  color:      var(--dropdorw-button-white);
+}
+
+.date-frequency-item {
+  padding:       5px 20px;
+  background:    var(--date-frequency-item-lgray);
+  color:         var(--date-frequency-item-dgray);
+  border-radius: 100px;
+  font-weight:   600;
+}
+
+.dropdown-menu__top .active {
+  background: var(--date-frequency-item-lblue) !important;
+  color:      var(--date-frequency-item-dblue) !important;
+}
+
+.scroll-div {
+  height:     100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.habit-form {
+  height: 100%;
+}
+
+.dropdown-menu__checkboxes {
+
+}
+
+.dropdown-menu__label {
+  display:        flex;
+  flex-direction: row;
+}
+
+.flex { display: flex; }
+
+.space-between { justify-content: space-between; }
+
+.flex-row { flex-direction: row; }
+
+.goal-input {
+  width:         100%;
+  font-size:     15px;
+  font-family:   var(--ff-rubik);
+  padding:       5px 15px;
+  border:        1px solid var(--border-gray);
+  border-radius: 5px;
+  caret-color:   var(--caret-black);
+}
+
+.mt-3 {
+  margin-top: 3em;
+}
+
+
+
+.today-tasks {
+
+}
+
+.block {
+  width:  100%;
+  height: fit-content;
 }

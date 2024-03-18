@@ -7,26 +7,115 @@
       </svg>
       <span>Back</span>
     </button>
-    <button (click)="open_habit_menu()" class="cta cta-reverse">
+    <button (click)="openMenu('add-habit-menu')" class="cta cta-reverse">
       <span>Add habit</span>
     </button>
+  </div>
+
+  <div class="today-tasks block">
+    <p>Good {{get_time()}}, {{user}}</p>
+    <div class="block-item flex space-between flex-row">
+      <p>Today tasks</p>
+    </div>
   </div>
 
   <div id="add-habit-menu" class="add-habit-menu">
     <div class="top top-habit-menu">
       <p>Add habit and control it</p>
-      <div (click)="close_habit_menu()">
+      <div style="cursor: pointer" (click)="closeMenu('add-habit-menu')">
         <svg width="20" height="20"
-          viewBox="0 0 24 24"><path d="m13.414 12 6.01-6.01a.999.999 0 1 0-1.414-1.414L12 10.586l-6.01-6.01A.999.999 0 1 0 4.576 5.99l6.01 6.01-6.01 6.01a.999.999 0 1 0 1.414 1.414l6.01-6.01 6.01 6.01a.997.997 0 0 0 1.414 0 .999.999 0 0 0 0-1.414L13.414 12z"/></svg>
+             viewBox="0 0 24 24">
+          <path
+            d="m13.414 12 6.01-6.01a.999.999 0 1 0-1.414-1.414L12 10.586l-6.01-6.01A.999.999 0 1 0 4.576 5.99l6.01 6.01-6.01 6.01a.999.999 0 1 0 1.414 1.414l6.01-6.01 6.01 6.01a.997.997 0 0 0 1.414 0 .999.999 0 0 0 0-1.414L13.414 12z"/>
+        </svg>
       </div>
     </div>
 
-    <form class="habit-form">
-      <label>
-        <p>Выбрать шаблон</p>
+    <div class="scroll-div">
+      <form class="habit-form">
         <select>
+          <option>my own</option>
         </select>
-      </label>
-    </form>
+        <table class="add-habit-table">
+          <tr>
+            <td class="table-tr-name">Title</td>
+            <td class="table-tr-input"><input class="input" [(ngModel)]="new_habit.title" name="habit-title"
+                                              autocomplete="habit-title" placeholder="Title of our habit"></td>
+          </tr>
+
+          <tr>
+            <td class="table-tr-name">Frequency</td>
+            <td class="table-tr-input">
+              <div class="input" (click)="openMenu('habit-frequency-dropdown-menu')">
+                <p>{{ new_habit.period }}</p>
+              </div>
+              <div id="habit-frequency-dropdown-menu" class="dropdown-menu">
+                <div class="dropdown-menu__top item">
+                  <div (click)="frequency_date_type_chose = 'daily'"
+                       [class.active]="frequency_date_type_chose == 'daily'" class="date-frequency-item">Daily
+                  </div>
+                  <div (click)="frequency_date_type_chose = 'weekly'"
+                       [class.active]="frequency_date_type_chose == 'weekly'" class="date-frequency-item">Weekly
+                  </div>
+                  <div (click)="frequency_date_type_chose = 'monthly'"
+                       [class.active]="frequency_date_type_chose == 'monthly'" class="date-frequency-item">Monthly
+                  </div>
+                </div>
+                <div class="dropdown-menu__submit item">
+                  <button (click)="closeMenu('habit-frequency-dropdown-menu')" type="button"
+                          class="button cancel-button">Cancel
+                  </button>
+                  <button
+                    (click)="changeNewHabitValue('period', frequency_date_type_chose, 'habit-frequency-dropdown-menu')"
+                    type="button" class="button ok-button">Ok
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="table-tr-name">Goal</td>
+            <td class="table-tr-input">
+              <div class="input" (click)="openMenu('habit-goal-dropdown-menu')">
+                <p>{{ getGoalValue() }}</p>
+              </div>
+              <div id="habit-goal-dropdown-menu" class="dropdown-menu">
+                <div class="dropdown-menu__top item">
+                  <div (click)="goal_type_chose = 'boolean'"
+                       [class.active]="goal_type_chose == 'boolean'" class="date-frequency-item">Boolean
+                  </div>
+                  <div (click)="goal_type_chose = 'numeric'"
+                       [class.active]="goal_type_chose == 'numeric'" class="date-frequency-item">Numeric
+                  </div>
+                </div>
+                <input name="goal-numerial-target-value" [(ngModel)]="target_value" *ngIf="goal_type_chose == 'numeric'" type="text" class="goal-input">
+                <div class="dropdown-menu__submit item">
+                  <button (click)="closeMenu('habit-goal-dropdown-menu')" type="button"
+                          class="button cancel-button">Cancel
+                  </button>
+                  <button
+                    (click)="changeNewHabitValue('type', goal_type_chose, 'habit-goal-dropdown-menu', target_value)"
+                    type="button" class="button ok-button">Ok
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="table-tr-name">Start date</td>
+            <td class="table-tr-input">
+              <input type="date" class="input" [(ngModel)]="new_habit.addDate" autocomplete="add-habit-date" name="addDate">
+            </td>
+          </tr>
+        </table>
+
+        <div class="dropdown-menu__submit mt-3">
+          <button (click)="closeMenu('add-habit-menu')" class="button cancel-button">Cancel</button>
+          <button (click)="addNewHabit()" class="button ok-button">Ok</button>
+        </div>
+      </form>
+    </div>
   </div>
 </main>
