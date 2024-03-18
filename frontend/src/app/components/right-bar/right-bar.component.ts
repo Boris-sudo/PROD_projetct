@@ -25,7 +25,6 @@ export class RightBarComponent implements OnInit, AfterViewInit {
     // @ts-ignore
     document.getElementById('current-data-input1')!.value = this.date_service.get_date();
     this.move_nav_background();
-    console.log(window.location.href);
   }
 
   navigate(url: string) {
