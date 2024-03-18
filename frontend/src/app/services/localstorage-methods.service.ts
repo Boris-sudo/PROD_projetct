@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {HabitModel} from "../models/habit.model";
 
 @Injectable({
   providedIn: 'root'
