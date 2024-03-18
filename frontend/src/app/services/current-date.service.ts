@@ -5,6 +5,7 @@ import {LocalstorageMethodsService} from "./localstorage-methods.service";
   providedIn: 'root'
 })
 export class CurrentDateService {
+  public months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   private date: string = (new Date()).toJSON().split('T')[0];
 
   constructor(
