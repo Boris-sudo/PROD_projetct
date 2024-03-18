@@ -3,7 +3,7 @@ export interface HabitModel {
   period: 'daily' | 'weekly' | 'monthly';
   addDate: Date;
 
-  type: 'checkbox' | 'value';
+  type: 'boolean' | 'numeric';
 
   targetValue?: number;
 }
