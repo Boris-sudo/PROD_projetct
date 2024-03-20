@@ -26,6 +26,10 @@ export class CurrentDateService {
     return this.date;
   }
 
+  get_date_date() {
+    return new Date(this.date);
+  }
+
   next_day() {
     let currentDate=new Date(this.date);
     currentDate.setDate(currentDate.getDate() + 1);
