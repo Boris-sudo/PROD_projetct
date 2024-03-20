@@ -1,0 +1,29 @@
+.login-menu {
+  position:      absolute;
+  width:         var(--login-menu-width);
+  height:        var(--login-menu-height);
+  top:           50%;
+  left:          50%;
+  transform:     translateX(-50%) translateY(-50%);
+  background:    var(--background-white);
+  border-radius: 10px;
+  padding:       0 10px;
+  z-index:       1001;
+  animation: smooth-appearance 1s;
+}
+
+.login-bg {
+  background: #00000040;
+  z-index:    1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  animation: smooth-appearance 1s;
+}
+
+@keyframes smooth-appearance {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
