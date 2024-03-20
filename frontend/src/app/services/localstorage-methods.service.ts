@@ -27,21 +27,22 @@ export class LocalstorageMethodsService {
 
   delete(key: string, item: string) {
     let string_value = this.get(key);
-    let new_string_value = '';
+    let new_string_value = string_value;
     if (string_value.indexOf(', '+item) != -1)
       new_string_value = string_value.replace(', '+item, '');
     else if (string_value.indexOf(item + ', ') != -1)
       new_string_value = string_value.replace(item+', ', '');
-    else
-      new_string_value = '';
+    else if (string_value.indexOf(item) != -1)
+      new_string_value = string_value.replace(item, '');
     this.set(key,new_string_value);
   }
 
   convertJsonToString(habit: any) {
     let result = '{';
     for (const key in habit) {
+      let value = habit[key];
       // @ts-ignore
-      result += `"${key}": "${habit[key]}", `
+      result += `"${key}": "${value}", `
     }
     result = result.substring(0, result.length - 2);
     result += '}';
