@@ -3,6 +3,7 @@ import {Location} from "@angular/common";
 import {HabitModel} from "../../models/habit.model";
 import {LocalstorageMethodsService} from "../../services/localstorage-methods.service";
 import {CurrentDateService} from "../../services/current-date.service";
+import {DoneValueService} from "../../services/done_value.service";
 
 interface DateCard {
   date: Date;
@@ -21,7 +22,6 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     addDate: new Date(),
     type: 'boolean',
     targetValue: 0,
-    doneValue: 0,
   }
   public frequency_date_type_chose: 'daily' | 'weekly' | 'monthly' = 'daily';
   public goal_type_chose: 'boolean' | 'numeric' = 'boolean';
@@ -29,6 +29,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   public submenus: string[] = ['habit-frequency-dropdown-menu', 'habit-goal-dropdown-menu']
 
   public all_habits: HabitModel[] = [];
+  public deleted_habits: HabitModel[] = [];
 
   public user: string = '';
 
@@ -38,9 +39,10 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   public week_days: string[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sun', 'sat'];
 
   constructor(
+    private done_value_service: DoneValueService,
     public date_service: CurrentDateService,
     public current_date_service: CurrentDateService,
-    public localstorage_service: LocalstorageMethodsService,
+    private localstorage_service: LocalstorageMethodsService,
     private location: Location,
   ) {
   }
@@ -70,9 +72,16 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
 
   get_all_habits() {
     const string_value = this.localstorage_service.get('habits');
-    this.all_habits = this.localstorage_service.toJson("[" + string_value + "]");
+    const habits: HabitModel[] = this.localstorage_service.toJson("[" + string_value + "]");
+    this.all_habits = [];
+    for (const habit of habits) {
+      habit.addDate = new Date(habit.addDate);
+      if (habit.addDate.toJSON().split('T')[0] <= this.current_date_service.get_date())
+        this.all_habits.push(habit);
+    }
+
     for (let i = 0; i < this.all_habits.length; i++) {
-      this.all_habits[i].doneValue = Number(this.all_habits[i].doneValue);
+      this.all_habits[i].doneValue = this.done_value_service.get(this.current_date_service.get_date(), this.all_habits[i].id);
       this.all_habits[i].targetValue = Number(this.all_habits[i].targetValue);
     }
   }
@@ -128,7 +137,6 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
       addDate: new Date(),
       type: 'boolean',
       targetValue: 0,
-      doneValue: 0,
     };
     this.frequency_date_type_chose = 'daily';
     this.target_value = '';
@@ -196,6 +204,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     this.closeHabitMenu();
     let string_value = this.localstorage_service.convertJsonArrayToString(this.all_habits);
     this.localstorage_service.set('habits', string_value);
+    this.done_value_service.setById(this.current_date_service.get_date(), habit.id, habit.doneValue);
   }
 
   deleteHabit(habit: HabitModel) {
@@ -218,5 +227,9 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   setDate(date: DateCard) {
     this.date_service.set_date(date.date.toJSON().split('T')[0]);
     this.scrollToSelectedDate();
+    this.get_all_habits();
+    setTimeout(() => {
+      this.update_percent();
+    });
   }
 }
