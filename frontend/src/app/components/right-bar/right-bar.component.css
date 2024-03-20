@@ -4,8 +4,8 @@
   flex-direction:      column;
   background:          var(--background-white);
   transition-duration: .5s;
-  z-index:             901;
   padding:             10px 0 0 20px;
+  z-index:             50;
   position:            relative;
   overflow:            hidden;
 }
