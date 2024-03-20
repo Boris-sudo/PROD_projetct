@@ -191,6 +191,14 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     for (const habit of this.all_habits) {
       let percent = 120 - habit.doneValue! / Number(habit.targetValue!) * 120;
       document.getElementById(`habit-circle${habit.id}`)!.style.strokeDashoffset = String(percent);
+      if (percent == 0) {
+        document.getElementById(`habit-circle${habit.id}`)!.classList.add('complete');
+        console.log(habit.id);
+        document.getElementById('habit-tick'+habit.id)!.classList.add('complete');
+      } else {
+        document.getElementById(`habit-circle${habit.id}`)!.classList.remove('complete');
+        document.getElementById(`habit-tick${habit.id}`)!.classList.remove('complete');
+      }
     }
   }
 
@@ -228,7 +236,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     this.done_value_service.setById(this.current_date_service.get_date(), habit.id, habit.doneValue);
   }
 
-  deleteHabit(ignore: boolean=false) {
+  deleteHabit(ignore: boolean = false) {
     // @ts-ignore
     const delete_all = document.getElementById('delete-all')!.checked;
 
