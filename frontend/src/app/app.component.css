@@ -5,12 +5,15 @@
   flex-direction: row;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 750px) {
   .right-bar {
     display: none!important;
   }
   .top-bar {
     display: block!important;
+  }
+  .full-width {
+    width: 100vw;
   }
 }
 
@@ -18,7 +21,7 @@
   padding: 20px 20px 0 20px;
 }
 .full-width {
-  width: 100%;
+  width: calc(100vw - var(--right-bar-menu-width))
 }
 .top-bar {
   display: none;
