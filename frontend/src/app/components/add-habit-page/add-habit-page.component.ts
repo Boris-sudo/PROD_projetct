@@ -4,6 +4,10 @@ import {HabitModel} from "../../models/habit.model";
 import {LocalstorageMethodsService} from "../../services/localstorage-methods.service";
 import {CurrentDateService} from "../../services/current-date.service";
 
+interface DateCard {
+  date: Date;
+}
+
 @Component({
   selector: 'app-add-habit-page',
   templateUrl: './add-habit-page.component.html',
@@ -30,7 +34,11 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
 
   public opened_habit_id = -1;
 
+  public near_dates: DateCard[] = [];
+  public week_days: string[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sun', 'sat'];
+
   constructor(
+    public date_service: CurrentDateService,
     public current_date_service: CurrentDateService,
     public localstorage_service: LocalstorageMethodsService,
     private location: Location,
@@ -44,12 +52,20 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     this.user = this.localstorage_service.get('user');
     this.get_all_habits();
     this.setNewHabitToDefault();
+    // setting dates
+    const delta = 15;
+    for (let i = -delta; i < delta; i++) {
+      let date = new Date();
+      date.setDate(date.getDate() + i);
+      this.near_dates.push({date: date,})
+    }
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.update_percent();
     });
+    this.scrollToSelectedDate();
   }
 
   get_all_habits() {
@@ -125,7 +141,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     this.localstorage_service.push('habits', string_habit);
     this.closeMenu('add-habit-menu');
     this.get_all_habits();
-    this.localstorage_service.set('last-habit-id', String(Number(this.localstorage_service.get('last-habit-id'))+1));
+    this.localstorage_service.set('last-habit-id', String(Number(this.localstorage_service.get('last-habit-id')) + 1));
     this.setNewHabitToDefault();
   }
 
@@ -169,11 +185,11 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   submitHabit(habit: HabitModel) {
     if (habit.type == 'numeric') {
       // @ts-ignore
-      const value: string = document.getElementById('habit-input'+habit.id)!.value;
+      const value: string = document.getElementById('habit-input' + habit.id)!.value;
       habit.doneValue = Number(value);
     } else {
       // @ts-ignore
-      const value = document.getElementById('habit-checkbox'+habit.id)!.checked;
+      const value = document.getElementById('habit-checkbox' + habit.id)!.checked;
       habit.doneValue = value ? 1 : 0;
     }
     this.update_percent();
@@ -186,5 +202,21 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     this.localstorage_service.delete('habits', this.localstorage_service.convertJsonToString(habit));
     this.closeHabitMenu();
     this.get_all_habits();
+  }
+
+  scrollToSelectedDate() {
+    const rollbar = document.getElementById('rollbar')!;
+    const date = this.date_service.get_date();
+    const element = document.getElementById('date-card' + date)!;
+    const window_width = window.innerWidth < 750 ? 750 : window.innerWidth - 300;
+    rollbar.scrollTo({
+      left: element.offsetLeft - (window_width - 64) / 2,
+      behavior: 'smooth',
+    });
+  }
+
+  setDate(date: DateCard) {
+    this.date_service.set_date(date.date.toJSON().split('T')[0]);
+    this.scrollToSelectedDate();
   }
 }
