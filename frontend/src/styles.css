@@ -111,4 +111,8 @@ img {
   --main-head-block-height:              600px;
   --blob-width:                          1000px;
   --minimum-right-bar-show-width:        600px;
+  --habit-delete-menu-width:             400px;
+  --habit-delete-menu-height:            400px;
+  --delete-habit-button-width:           100%;
+  --delete-habit-button-height:          60px;
 }

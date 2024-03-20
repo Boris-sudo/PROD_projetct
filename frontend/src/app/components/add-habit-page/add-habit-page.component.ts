@@ -20,6 +20,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     title: '',
     period: 'daily',
     addDate: new Date(),
+    deletedDate: new Date(),
     type: 'boolean',
     targetValue: 0,
   }
@@ -34,6 +35,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   public user: string = '';
 
   public opened_habit_id = -1;
+  public deleting_habit: any = {};
 
   public near_dates: DateCard[] = [];
   public week_days: string[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sun', 'sat'];
@@ -53,6 +55,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     };
     this.user = this.localstorage_service.get('user');
     this.get_all_habits();
+    this.get_deleted_habits();
     this.setNewHabitToDefault();
     // setting dates
     const delta = 15;
@@ -68,6 +71,23 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
       this.update_percent();
     });
     this.scrollToSelectedDate();
+  }
+
+  get_deleted_habits() {
+    const string_value = this.localstorage_service.get('deleted-habits');
+    const habits: HabitModel[] = this.localstorage_service.toJson("[" + string_value + "]");
+    this.deleted_habits = [];
+    for (const habit of habits) {
+      habit.addDate = new Date(habit.addDate);
+      habit.deletedDate = new Date(habit.deletedDate);
+      if (habit.deletedDate.toJSON().split('T')[0] > this.current_date_service.get_date() && habit.addDate.toJSON().split('T')[0] <= this.current_date_service.get_date())
+        this.deleted_habits.push(habit);
+    }
+
+    for (let i = 0; i < this.deleted_habits.length; i++) {
+      this.deleted_habits[i].doneValue = this.done_value_service.get(this.current_date_service.get_date(), this.deleted_habits[i].id);
+      this.deleted_habits[i].targetValue = Number(this.deleted_habits[i].targetValue);
+    }
   }
 
   get_all_habits() {
@@ -103,7 +123,6 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   closeMenu(id: string) {
     if (this.submenus.indexOf(id) == -1) for (const submenu of this.submenus) this.closeMenu(submenu);
 
-
     const menu = document.getElementById(id)!;
     menu.classList.remove('show');
     setTimeout(() => {
@@ -135,8 +154,10 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
       title: '',
       period: 'daily',
       addDate: new Date(),
+      deletedDate: new Date(),
       type: 'boolean',
       targetValue: 0,
+      doneValue: 0,
     };
     this.frequency_date_type_chose = 'daily';
     this.target_value = '';
@@ -207,10 +228,25 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     this.done_value_service.setById(this.current_date_service.get_date(), habit.id, habit.doneValue);
   }
 
-  deleteHabit(habit: HabitModel) {
+  deleteHabit(ignore: boolean=false) {
+    // @ts-ignore
+    const delete_all = document.getElementById('delete-all')!.checked;
+
+    let habit = this.deleting_habit;
+    habit.addDate = (habit.addDate).toJSON().split('T')[0];
+    habit.deletedDate = (habit.deletedDate).toJSON().split('T')[0];
     this.localstorage_service.delete('habits', this.localstorage_service.convertJsonToString(habit));
+    if (!delete_all && !ignore) {
+      habit.deletedDate = this.current_date_service.get_date();
+      this.localstorage_service.push('deleted-habits', this.localstorage_service.convertJsonToString(habit));
+    } else {
+      this.localstorage_service.delete('deleted-habits', this.localstorage_service.convertJsonToString(habit));
+    }
     this.closeHabitMenu();
+    this.closeMenu('bg');
+    this.closeMenu('delete-habit-menu');
     this.get_all_habits();
+    this.get_deleted_habits();
   }
 
   scrollToSelectedDate() {
@@ -228,8 +264,24 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     this.date_service.set_date(date.date.toJSON().split('T')[0]);
     this.scrollToSelectedDate();
     this.get_all_habits();
+    this.get_deleted_habits();
     setTimeout(() => {
       this.update_percent();
     });
+  }
+
+  checkDeleted(id: string) {
+    // @ts-ignore
+    document.getElementById('delete-prev').checked = false;
+    // @ts-ignore
+    document.getElementById('delete-all').checked = false;
+    // @ts-ignore
+    document.getElementById(id).checked = true;
+  }
+
+  openDeleteHabitMenu(habit: HabitModel) {
+    this.openMenu('bg');
+    this.openMenu('delete-habit-menu');
+    this.deleting_habit = habit;
   }
 }

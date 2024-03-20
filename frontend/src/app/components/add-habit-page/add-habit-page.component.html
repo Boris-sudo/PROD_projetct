@@ -30,7 +30,7 @@
       <p class="sub-header date">{{ get_date() }}</p>
     </div>
 
-    <div class="habits-content">
+    <div style="min-height: var(--habits-content-height)" class="habits-content">
       <div class="habits-content__void" *ngIf="all_habits.length == 0">
         <div class="habits-content__svg-images">
           <svg class="svg circle" viewBox="0 0 238 238">
@@ -105,25 +105,69 @@
           </div>
         </div>
         <div *ngIf="opened_habit_id == habit.id" class="opened-habit-content">
-            <div class="habit__input-container flex-row" *ngIf="habit.type == 'boolean'">
-              <input [checked]="habit.doneValue == 1" class="habit__input-checkbox" type="checkbox"
-                     [id]="'habit-checkbox'+habit.id" placeholder="Отметить выполненным">
-              <p>Отметить выполненным</p>
+          <div class="habit__input-container flex-row" *ngIf="habit.type == 'boolean'">
+            <input [checked]="habit.doneValue == 1" class="habit__input-checkbox" type="checkbox"
+                   [id]="'habit-checkbox'+habit.id" placeholder="Отметить выполненным">
+            <p>Отметить выполненным</p>
+          </div>
+          <div class="habit__input-container flex-col" *ngIf="habit.type == 'numeric'">
+            <p>Прогресс выполнения</p>
+            <input [value]="habit.doneValue" class="habit__input-number" type="number" [max]="habit.targetValue"
+                   name="habit-input-number" [id]="'habit-input'+habit.id">
+          </div>
+          <div class="dropdown-menu__submit">
+            <button class="button delete-button" type="button" (click)="openDeleteHabitMenu(habit)">Delete</button>
+            <button class="button ok-button" type="button" (click)="submitHabit(habit)">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="today-tasks block" *ngIf="deleted_habits.length > 0">
+    <p class="sub-header">Deleted tasks</p>
+
+    <div class="habits-content">
+      <div [id]="'habit-container'+habit.id" class="habits-content__habit" *ngFor="let habit of deleted_habits">
+        <div class="habits-content__habit-content mini-habit-content flex flex-row space-between">
+          <div class="flex flex-row habit-content__habit-div">
+            <div class="habits-content__habit-img">
+              <svg width="40" height="40" class="svg" xmlns="http://www.w3.org/2000/svg">
+                <circle class="circle stroke-gray" r="19" cx="20px" cy="20px" stroke-linecap="round"></circle>
+              </svg>
+              <svg width="40" height="40" class="svg" xmlns="http://www.w3.org/2000/svg">
+                <circle [id]="'habit-circle'+habit.id" class="circle" r="19" cx="20px" cy="20px"
+                        stroke-linecap="round"></circle>
+              </svg>
+              <svg class="tick" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M9.125 19.125a.997.997 0 0 1-.707-.293l-6.125-6.125a.999.999 0 1 1 1.414-1.414l5.418 5.418L20.668 5.168a.999.999 0 1 1 1.414 1.414l-12.25 12.25a.997.997 0 0 1-.707.293z"/>
+              </svg>
             </div>
-            <div class="habit__input-container flex-col" *ngIf="habit.type == 'numeric'">
-              <p>Прогресс выполнения</p>
-              <input [value]="habit.doneValue" class="habit__input-number" type="number" [max]="habit.targetValue"
-                     name="habit-input-number" [id]="'habit-input'+habit.id">
-            </div>
-            <div class="dropdown-menu__submit">
-              <button class="button delete-button" type="button" (click)="deleteHabit(habit)">Delete</button>
-              <button class="button ok-button" type="button" (click)="submitHabit(habit)">Ok</button>
+            <div class="habits-content__habit-info">
+              <p class="habits-content__habit-header">{{ habit.title }}</p>
+              <p class="habits-content__habit-text">{{ habit.doneValue }} / {{ habit.targetValue }}</p>
             </div>
           </div>
+          <div class="habit-content__habit-edit" (click)="openHabitMenu(habit)">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12.7431 12.7083V17.257C12.7431 17.6673 12.4105 18 12.0002 18C11.59 18 11.2574 17.6673 11.2574 17.257V12.7083H6.7272C6.34452 12.6687 6.05371 12.3461 6.05371 11.9613C6.05371 11.5765 6.34452 11.2539 6.7272 11.2143H11.2494V6.67365C11.289 6.29088 11.6115 6 11.9963 6C12.381 6 12.7035 6.29088 12.7431 6.67365V11.2143H17.2733C17.656 11.2539 17.9468 11.5765 17.9468 11.9613C17.9468 12.3461 17.656 12.6687 17.2733 12.7083H12.7431Z"
+                    fill="#040415"/>
+            </svg>
+          </div>
+        </div>
+        <div *ngIf="opened_habit_id == habit.id" class="opened-habit-content">
+          <div class="dropdown-menu__submit">
+            <button class="button delete-button" type="button" (click)="deleting_habit=habit; deleteHabit(true)">
+              Delete
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
+  <div id="bg" class="black-bg"></div>
   <div id="add-habit-menu" class="add-habit-menu">
     <div class="top top-habit-menu">
       <p>Add habit and control it</p>
@@ -225,6 +269,19 @@
       </form>
     </div>
   </div>
-  <div id="bg" class="black-bg"></div>
-  <div id="delete-habit-menu" class="delete-habit-menu"></div>
+  <div id="delete-habit-menu" class="delete-habit-menu">
+    <p class="header">Удаление привычки</p>
+    <label class="flex flex-row align-center grid-col-gap-10">
+      <input (change)="checkDeleted('delete-prev')" checked type="checkbox" id="delete-prev">
+      <p>Это и последующие отслеживания</p>
+    </label>
+    <label class="flex flex-row align-center grid-col-gap-10">
+      <input (change)="checkDeleted('delete-all')" type="checkbox" id="delete-all">
+      <p>Все отслеживания</p>
+    </label>
+    <div class="dropdown-menu__submit">
+      <button (click)="closeMenu('delete-habit-menu'); this.closeMenu('bg')" class="button cancel-button">Cancel</button>
+      <button (click)="deleteHabit()" class="button delete-button">Delete</button>
+    </div>
+  </div>
 </main>
