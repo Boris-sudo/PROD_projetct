@@ -3,12 +3,13 @@ import {RouterModule, Routes} from '@angular/router';
 import {MainPageComponent} from "./components/main-page/main-page.component";
 import {AddHabitPageComponent} from "./components/add-habit-page/add-habit-page.component";
 import {LoginComponent} from "./components/login/login.component";
+import {ProfileComponent} from "./components/profile/profile.component";
 
 const routes: Routes = [
   {path: '', component: MainPageComponent},
   {path: 'habits', component: AddHabitPageComponent},
   {path: 'explore', component: AddHabitPageComponent},
-  {path: 'profile', component: AddHabitPageComponent},
+  {path: 'profile', component: ProfileComponent},
   {path: 'login', component: LoginComponent},
 ];
 
