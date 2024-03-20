@@ -181,10 +181,18 @@
     </div>
 
     <div class="scroll-div">
-      <form class="habit-form">
-        <select>
-          <option>my own</option>
+      <div class="add-habit-select">
+        <select (change)="setSelectedCollection()" id="first-select">
+          <option value="">my own</option>
+          <option [value]="habit_collection.title" *ngFor="let habit_collection of ready_habits">{{habit_collection.title}}</option>
         </select>
+        <select id="second-select" *ngIf="selected_collection.length > 0">
+          <option>...</option>
+          <option [value]="habit.title" *ngFor="let habit of selected_collection">{{habit.title}}</option>
+        </select>
+        <button (click)="selectNewHabit()" *ngIf="selected_collection.length > 0" class="select-button">Generate</button>
+      </div>
+      <form class="habit-form">
         <table class="add-habit-table">
           <tr>
             <td class="table-tr-name">Title</td>

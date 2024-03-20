@@ -1,9 +1,10 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
-import {HabitModel} from "../../models/habit.model";
+import {HabitModel, HabitsCollectionModel} from "../../models/habit.model";
 import {LocalstorageMethodsService} from "../../services/localstorage-methods.service";
 import {CurrentDateService} from "../../services/current-date.service";
 import {DoneValueService} from "../../services/done_value.service";
+import {ReadyHabitsService} from "../../services/ready-habits.service";
 
 interface DateCard {
   date: Date;
@@ -40,7 +41,11 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   public near_dates: DateCard[] = [];
   public week_days: string[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sun', 'sat'];
 
+  public ready_habits: HabitsCollectionModel[] = [];
+  public selected_collection: HabitModel[] = [];
+
   constructor(
+    private ready_habits_service: ReadyHabitsService,
     private done_value_service: DoneValueService,
     public date_service: CurrentDateService,
     public current_date_service: CurrentDateService,
@@ -64,6 +69,8 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
       date.setDate(date.getDate() + i);
       this.near_dates.push({date: date,})
     }
+    // setting ready habits
+    this.ready_habits = this.ready_habits_service.get_all();
   }
 
   ngAfterViewInit(): void {
@@ -193,8 +200,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
       document.getElementById(`habit-circle${habit.id}`)!.style.strokeDashoffset = String(percent);
       if (percent == 0) {
         document.getElementById(`habit-circle${habit.id}`)!.classList.add('complete');
-        console.log(habit.id);
-        document.getElementById('habit-tick'+habit.id)!.classList.add('complete');
+        document.getElementById('habit-tick' + habit.id)!.classList.add('complete');
       } else {
         document.getElementById(`habit-circle${habit.id}`)!.classList.remove('complete');
         document.getElementById(`habit-tick${habit.id}`)!.classList.remove('complete');
@@ -291,5 +297,26 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     this.openMenu('bg');
     this.openMenu('delete-habit-menu');
     this.deleting_habit = habit;
+  }
+
+  setSelectedCollection() {
+    // @ts-ignore
+    const collection_name = document.getElementById('first-select')!.value;
+    console.log(collection_name);
+    if (collection_name == '') this.selected_collection = [];
+    else this.selected_collection = this.ready_habits_service.get_collection(collection_name).habits;
+  }
+
+  selectNewHabit() {
+    // @ts-ignore
+    const title = document.getElementById('second-select')!.value;
+    let habit = this.ready_habits_service.get_habit(title);
+    this.new_habit.title = habit.title;
+    this.new_habit.targetValue = habit.targetValue;
+    this.new_habit.type = habit.type;
+    this.new_habit.addDate = new Date();
+    this.new_habit.period = habit.period;
+    this.new_habit.deletedDate = habit.deletedDate;
+    this.new_habit.doneValue = 0;
   }
 }

@@ -630,3 +630,22 @@
   font-size:   20px;
   font-weight: bolder;
 }
+
+.add-habit-select {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.add-habit-select select {
+  padding: 5px 10px;
+  border: 1px solid var(--border-gray);
+  background: var(--background-white);
+  font-size: 15px;
+}
+
+.select-button {
+  padding: 5px 10px;
+}
