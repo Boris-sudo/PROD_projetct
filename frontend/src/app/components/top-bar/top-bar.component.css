@@ -57,65 +57,26 @@
 }
 
 .menu {
-  --menu-width:        min(100vw, 400px);
-  position:            fixed;
+  --menu-width:        min(100vw, var(--right-bar-menu-width));
+  position:            absolute;
   width:               var(--menu-width);
   height:              100vh;
   top:                 0;
   right:               calc(-1 * var(--menu-width));
   display:             none;
   flex-direction:      column;
-  background:          var(--background-light);
   transition-duration: .5s;
   z-index:             901;
-  padding:             10px 20px 0;
 }
 
 .menu.opened {
   right: 0;
 }
 
-.menu-top {
-  display:         flex;
-  justify-content: space-between;
-  flex-direction:  row;
-
-  width:           100%;
-}
-
-.nav {
-  display:        flex;
-  margin-top:     20px;
-  flex-direction: column;
-}
-
-.link {
-  display:         flex;
-  flex-direction:  row;
-  justify-content: space-between;
-}
-
-.link-arrow {
-  margin-right:        15px;
-  transition-duration: .3s;
-}
-
-.link:hover .link-arrow {
-  transform: translateX(10px);
-}
-
-.data-chose {
-  margin-top:      30px;
-  width:           100%;
-  display:         flex;
-  justify-content: space-around;
-  align-items:     center;
-  align-content:   center;
-}
-
-.data-input {
-  font-family:   var(--ff-rubik);
-  border:        1px solid #999999;
-  padding:       5px 10px;
-  border-radius: 5px;
+.close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  fill: #000;
+  z-index: 1000;
 }
