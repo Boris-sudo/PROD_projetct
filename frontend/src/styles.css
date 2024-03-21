@@ -32,6 +32,7 @@ body {
   padding:     0;
   caret-color: transparent;
   font-family: var(--ff-raleway);
+  -webkit-tap-highlight-color: transparent;
 }
 
 input {
