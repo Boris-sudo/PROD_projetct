@@ -8,6 +8,7 @@ export interface Achievement {
   need_progress: number[];
   about_text?: string;
   about: string;
+  to_about: string[];
   img_path: string;
   color: string;
 }
@@ -17,7 +18,11 @@ export interface Achievement {
 })
 export class AchievementsService {
   private achievements: Achievement[] = [];
-  private colors: string[] = ['#0000f4', '#8814cb', '#5bc226',];
+  private colors: string[] = [
+    '#f4f000', '#97ea07', '#0ae750',
+    '#00d8f4', '#ea07bd', '#e70a0a',
+    '#f48200','#fff200',
+  ];
   private key: string = 'achievements';
 
   constructor(
@@ -32,8 +37,29 @@ export class AchievementsService {
         level: 0,
         have_progress: 0,
         need_progress: [5,10,15,30,50,100],
-        about: '',
+        about: 'Оставайтесь в ударном режиме $.',
+        to_about: ['5 дней','10 дней','15 дней','30 дней','50 дней','100 дней'],
         img_path: 'fire.svg',
+        color: '',
+      },
+      {
+        title: 'Продвинутый',
+        level: 0,
+        have_progress: 0,
+        need_progress: [100,500,1000,1500,2500,5000,7500,10000],
+        about: 'Получите $ очков опыта.',
+        to_about: ['100','500','1000','1500','2500','5000','7500','10000'],
+        img_path: 'cup.svg',
+        color: '',
+      },
+      {
+        title: 'Закалённый',
+        level: 0,
+        have_progress: 0,
+        need_progress: [5,10,15,30,50,100],
+        about: 'Выполните полностью $ привычек.',
+        to_about: ['5','10','15','30','50','100'],
+        img_path: 'hand.svg',
         color: '',
       },
     ];
@@ -53,7 +79,7 @@ export class AchievementsService {
   get_achievements(): Achievement[] {
     this.from_localstorage();
     for (const achievement of this.achievements) {
-      achievement.about_text = achievement.about.replace('$', String(achievement.need_progress[achievement.level]));
+      achievement.about_text = achievement.about.replace('$', achievement.to_about[achievement.level]);
       achievement.color = this.get_color(achievement.level);
     }
     return this.achievements;
