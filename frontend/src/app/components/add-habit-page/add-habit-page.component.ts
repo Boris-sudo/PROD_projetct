@@ -267,7 +267,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     const rollbar = document.getElementById('rollbar')!;
     const date = this.date_service.get_date();
     const element = document.getElementById('date-card' + date)!;
-    const window_width = window.innerWidth < 750 ? 750 : window.innerWidth - 300;
+    const window_width = window.innerWidth < 750 ? window.innerWidth : window.innerWidth - 300;
     rollbar.scrollTo({
       left: element.offsetLeft - (window_width - 64) / 2,
       behavior: 'smooth',
