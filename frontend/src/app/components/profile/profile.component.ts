@@ -27,6 +27,9 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    const loader = document.getElementById('loader')!;
+    loader.style.display = 'block';
+
     this.profile = this.profile_service.get();
     this.avatar = this.avatar_service.get_by_id(this.profile.avatar_id!);
     this.background = this.background_service.get_by_id(this.profile.background_id!);
