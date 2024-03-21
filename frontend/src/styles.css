@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway");
 @import url("https://fonts.googleapis.com/css2?family=Goldman");
 @import url("https://fonts.googleapis.com/css2?family=Rubik");
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap');
 
 html, body {
   width:           100vw;
@@ -58,6 +59,7 @@ img {
   --ff-raleway:                          "Raleway", sans-serif;
   --ff-rubik:                            "Rubik", sans-serif;
   --ff-ubuntu:                           "Ubuntu", sans-serif;
+  --ff-dosis:                            "Dosis", sans-serif;
 
   --green:                               #008000;
   --blue:                                #4772fa;
@@ -115,4 +117,9 @@ img {
   --habit-delete-menu-height:            400px;
   --delete-habit-button-width:           100%;
   --delete-habit-button-height:          60px;
+}
+
+body {
+  --edit-image-color:  #ffffff;
+  --profile-top-color: #0000f4;
 }
