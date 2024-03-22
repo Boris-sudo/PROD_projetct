@@ -5,6 +5,7 @@ import {LocalstorageMethodsService} from "../../services/localstorage-methods.se
 import {CurrentDateService} from "../../services/current-date.service";
 import {DoneValueService} from "../../services/done_value.service";
 import {ReadyHabitsService} from "../../services/ready-habits.service";
+import {ProfileService} from "../../services/profile.service";
 
 interface DateCard {
   date: Date;
@@ -46,6 +47,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   public selected_collection: HabitModel[] = [];
 
   constructor(
+    private profile_service: ProfileService,
     private ready_habits_service: ReadyHabitsService,
     private done_value_service: DoneValueService,
     public date_service: CurrentDateService,
@@ -248,6 +250,8 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   }
 
   submitHabit(habit: HabitModel) {
+    if (habit.doneValue == habit.targetValue) this.profile_service.add_completed_habits_count(-1);
+
     if (habit.type == 'numeric') {
       // @ts-ignore
       const value: string = document.getElementById('habit-input' + habit.id)!.value;
@@ -257,6 +261,9 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
       const value = document.getElementById('habit-checkbox' + habit.id)!.checked;
       habit.doneValue = value ? 1 : 0;
     }
+
+    if (habit.doneValue == habit.targetValue) this.profile_service.add_completed_habits_count(1);
+
     this.update_percent();
     this.closeHabitMenu();
     let string_value = this.localstorage_service.convertJsonArrayToString(this.all_habits);

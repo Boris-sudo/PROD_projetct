@@ -119,4 +119,11 @@ export class ProfileService {
 
     return habits.length == solved_count;
   }
+
+  add_completed_habits_count(count: number) {
+    this.from_localstorage();
+    this.profile.habits_complete! += count;
+    this.achievement_service.set_progress_ignore_max(2, this.profile.habits_complete!);
+    this.to_localstorage();
+  }
 }

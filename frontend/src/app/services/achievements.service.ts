@@ -25,7 +25,7 @@ export class AchievementsService {
   private colors: string[] = [
     '#f4f000', '#97ea07', '#0ae750',
     '#00d8f4', '#ea07bd', '#e70a0a',
-    '#f48200','#fff200',
+    '#f48200', '#fff200',
   ];
   private key: string = 'achievements';
 
@@ -44,9 +44,9 @@ export class AchievementsService {
         title: 'Работяга',
         level: 0,
         have_progress: 0,
-        need_progress: [5,10,15,30,50,100],
+        need_progress: [5, 10, 15, 30, 50, 100],
         about: 'Оставайтесь в ударном режиме $.',
-        to_about: ['5 дней','10 дней','15 дней','30 дней','50 дней','100 дней'],
+        to_about: ['5 дней', '10 дней', '15 дней', '30 дней', '50 дней', '100 дней'],
         img_path: 'fire.svg',
         color: '',
       },
@@ -54,9 +54,9 @@ export class AchievementsService {
         title: 'Продвинутый',
         level: 0,
         have_progress: 0,
-        need_progress: [100,500,1000,1500,2500,5000,7500,10000],
+        need_progress: [100, 500, 1000, 1500, 2500, 5000, 7500, 10000],
         about: 'Получите $ очков опыта.',
-        to_about: ['100','500','1000','1500','2500','5000','7500','10000'],
+        to_about: ['100', '500', '1000', '1500', '2500', '5000', '7500', '10000'],
         img_path: 'cup.svg',
         color: '',
       },
@@ -64,9 +64,9 @@ export class AchievementsService {
         title: 'Закалённый',
         level: 0,
         have_progress: 0,
-        need_progress: [5,10,15,30,50,100],
+        need_progress: [5, 10, 15, 30, 50, 100],
         about: 'Выполните полностью $ привычек.',
-        to_about: ['5','10','15','30','50','100'],
+        to_about: ['5', '10', '15', '30', '50', '100'],
         img_path: 'hand.svg',
         color: '',
       },
@@ -74,9 +74,9 @@ export class AchievementsService {
         title: 'Богач',
         level: 0,
         have_progress: 0,
-        need_progress: [100,500,1000,2500,5000,10000],
+        need_progress: [100, 500, 1000, 2500, 5000, 10000],
         about: 'На вашем счету $ монет.',
-        to_about: ['100','500','1000','2500','5000','10000'],
+        to_about: ['100', '500', '1000', '2500', '5000', '10000'],
         img_path: 'coin.svg',
         color: '',
       },
@@ -122,7 +122,13 @@ export class AchievementsService {
   set_progress(id: number, xp: number) {
     this.from_localstorage();
     const progress = this.achievements[id].have_progress;
-    if (progress < xp) this.add_progress(id, xp-progress);
+    if (progress < xp) this.add_progress(id, xp - progress);
+    this.to_localstorage();
+  }
+
+  set_progress_ignore_max(id: number, xp: number) {
+    this.from_localstorage();
+    this.add_progress(id, xp-this.achievements[id].have_progress);
     this.to_localstorage();
   }
 }
