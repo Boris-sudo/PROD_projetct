@@ -36,10 +36,10 @@ export class ProfileService {
   defaultProfile(): Profile {
     return {
       avatar_id: 0,
-      available_avatars: [],
+      available_avatars: [0,1,2,3],
 
       background_id: 0,
-      available_backgrounds: [],
+      available_backgrounds: [0,1],
 
       level: 0,
       money: 0,
