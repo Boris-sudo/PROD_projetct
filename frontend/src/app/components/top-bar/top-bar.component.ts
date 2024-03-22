@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {RoutingService} from "../../services/routing.service";
 
 @Component({
   selector: 'app-top-bar',
@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 export class TopBarComponent implements OnInit {
 
   constructor(
-    private router: Router,
+    private router: RoutingService,
   ) {
   }
 
@@ -41,9 +41,7 @@ export class TopBarComponent implements OnInit {
   }
 
   navigate(url: string) {
-    this.router.navigate([url]).then();
+    this.router.navigate(url).then();
     this.close_menu();
   }
-
-  protected readonly close = close;
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LocalstorageMethodsService} from "../../services/localstorage-methods.service";
-import {Router} from "@angular/router";
+import {RoutingService} from "../../services/routing.service";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private localstorage: LocalstorageMethodsService,
-    private router: Router,
+    private router: RoutingService,
   ) {
   }
 
@@ -21,6 +21,6 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.localstorage.set('user', this.username);
-    this.router.navigate(['']);
+    this.router.navigate('').then();
   }
 }

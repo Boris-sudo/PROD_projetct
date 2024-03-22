@@ -21,7 +21,7 @@
   </div>
 
   <nav class="nav">
-    <div [id]="'right-bar-nav-item'+link.url" [class.active]="get_url() == link.url" (click)="navigate(link.url)" class="link"
+    <div [id]="'right-bar-nav-item'+link.url" [class.active]="router.get_link() == link.url" (click)="navigate(link.url)" class="link"
          *ngFor="let link of right_bar_links">
       <p>{{ link.name }}</p>
     </div>

@@ -6,7 +6,7 @@ import {Background, BackgroundService} from "../../services/backgrounds";
 import {Achievement, AchievementsService} from "../../services/achievements.service";
 import {LoaderComponent} from "../loader/loader.component";
 import {CurrentDateService} from "../../services/current-date.service";
-import {Router} from "@angular/router";
+import {RoutingService} from "../../services/routing.service";
 
 @Component({
   selector: 'app-profile',
@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     private profile_service: ProfileService,
     private avatar_service: AvatarService,
     private background_service: BackgroundService,
-    private router: Router,
+    private router: RoutingService,
   ) {
   }
 
@@ -59,6 +59,6 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   open_profile_image_chose_menu() {
-    this.router.navigate(['settings/avatar']).then();
+    this.router.navigate('settings/avatar').then();
   }
 }

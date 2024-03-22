@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
 import {CurrentDateService} from "../../services/current-date.service";
 import {navBarLinks} from "../../app-routing.module";
 import {ProfileService} from "../../services/profile.service";
 import {LoaderComponent} from "../loader/loader.component";
+import {RoutingService} from "../../services/routing.service";
 
 @Component({
   selector: 'app-right-bar',
@@ -13,16 +13,17 @@ import {LoaderComponent} from "../loader/loader.component";
 export class RightBarComponent implements OnInit, AfterViewInit {
   public right_bar_links = navBarLinks;
 
-
   constructor(
-    private router: Router,
+    public router: RoutingService,
     private date_service: CurrentDateService,
     private profile_service: ProfileService,
   ) {
   }
 
-
   ngOnInit(): void {
+    this.router.subscribers$.subscribe(() => {
+      this.move_nav_background();
+    });
   }
 
   ngAfterViewInit(): void {
@@ -32,7 +33,7 @@ export class RightBarComponent implements OnInit, AfterViewInit {
   }
 
   navigate(url: string) {
-    this.router.navigate([url]).then(() => {
+    this.router.navigate(url).then(() => {
         this.move_nav_background();
       }
     );
@@ -40,7 +41,7 @@ export class RightBarComponent implements OnInit, AfterViewInit {
 
   move_nav_background() {
     const nav_bg = document.getElementById('nav-bg')!;
-    const url = this.get_url();
+    const url = this.router.get_link();
     let found = false;
     for (const rightBarLink of this.right_bar_links)
       if (rightBarLink.url == url) found = true;
@@ -60,8 +61,6 @@ export class RightBarComponent implements OnInit, AfterViewInit {
       })
     }
   }
-
-
 
   check_all_habits_done() {
     const are_done = this.profile_service.are_all_done();
@@ -105,15 +104,5 @@ export class RightBarComponent implements OnInit, AfterViewInit {
     document.getElementById('current-data-input')!.value = this.date_service.get_date();
 
     LoaderComponent.hide_loader();
-  }
-
-  get_url() {
-    const url = window.location.href.split('/');
-    let result = '';
-    for (let url_index = 3; url_index < url.length; url_index++) {
-      if (url_index != 3) result += '/';
-      result += url[url_index];
-    }
-    return result;
   }
 }

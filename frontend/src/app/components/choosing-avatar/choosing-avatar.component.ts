@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from "@angular/common";
 import {Profile, ProfileService} from "../../services/profile.service";
 import {Background, BackgroundService} from "../../services/backgrounds";
 import {Avatar, AvatarService} from "../../services/avatar.service";
+import {RoutingService} from "../../services/routing.service";
 
 @Component({
   selector: 'app-choosing-avatar',
@@ -19,7 +19,7 @@ export class ChoosingAvatarComponent implements OnInit {
   public current_page: string = 'Аватар';
 
   constructor(
-    private location: Location,
+    public router: RoutingService,
     private profile_service: ProfileService,
     private backgrounds_service: BackgroundService,
     private avatar_service: AvatarService,
@@ -45,10 +45,6 @@ export class ChoosingAvatarComponent implements OnInit {
     for (const id of this.profile.available_avatars!)
       result.push(this.avatar_service.get_by_id(id));
     return result;
-  }
-
-  navigateBack() {
-    this.location.back();
   }
 
   save_avatar() {
