@@ -98,15 +98,15 @@
 }
 
 .working-info-blocks {
-  width:                 100%;
-  display:               flex;
-  flex-direction:        row;
-  gap:                   12px;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-columns:     1fr;
+  width:          100%;
+  display:        flex;
+  flex-direction: row;
+  gap:            var(--working-info-blocks-gap);
+  flex-wrap:      wrap;
 }
 
 .working-info-block {
+  flex-basis:      calc(50% - var(--working-info-blocks-gap) / 2);
   width:           inherit;
   border:          2px solid var(--border-gray);
   display:         flex;
@@ -159,6 +159,9 @@
 
 .fire .path-y { fill: var(--background-light); }
 
+.flags .path-l { fill: var(--path-flag-gray-l1); }
+.flags .path-d { fill: var(--path-flag-gray-l2); }
+
 .active .path-w { fill: var(--path-white-color) }
 
 .active .path-r { fill: var(--path-red-color) }
@@ -166,6 +169,10 @@
 .active .path-y { fill: var(--path-yellow-color) }
 
 .active .lightning .path { fill: var(--path-lightning-color); }
+
+.active .flags .path-l { fill: var(--path-flag-gray); }
+
+.active .flags .path-d { fill: var(--path-flag-red); }
 
 .working-info-block .number {
   color: var(--border-gray);
@@ -324,16 +331,21 @@
   --card-image-size-small:     40px;
   --progressbar-height:        15px;
   --progresbar-border-radius:  10px;
+  --working-info-blocks-gap:   12px;
 
   --profile-color:             var(--profile-top-color);
-  --edit-color:                var(--edit-image-color);
-  --border-gray:               #37464f;
+  --edit-color:           var(--edit-image-color);
+  --border-gray:          #37464f;
 
-  --path-white-color:          #ffffff;
-  --path-red-color:            #f44336;
-  --path-yellow-color:         #ffa100;
-  --path-lightning-color:      #ffc107;
+  --path-white-color:     #ffffff;
+  --path-red-color:       #f44336;
+  --path-yellow-color:    #ffa100;
+  --path-lightning-color: #ffc107;
+  --path-flag-gray:       #607d8b;
+  --path-flag-red:        #f44336;
+  --path-flag-gray-l1:    #999999;
+  --path-flag-gray-l2:    #c4c4c4;
 
-  --progressbar-gray:          #bbbbbb;
-  --progressbar-yellow:        #ffc107;
+  --progressbar-gray:     #bbbbbb;
+  --progressbar-yellow:   #ffc107;
 }
