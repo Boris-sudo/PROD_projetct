@@ -16,6 +16,8 @@ export interface Profile {
   money?: number;
   streak_days?: number;
   habits_complete?: number;
+
+  freeze_count?: number;
 }
 
 @Injectable({
@@ -45,6 +47,8 @@ export class ProfileService {
       money: 0,
       streak_days: 0,
       habits_complete: 0,
+
+      freeze_count: 0,
     }
   }
 
