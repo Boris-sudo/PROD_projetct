@@ -6,6 +6,7 @@ import {Background, BackgroundService} from "../../services/backgrounds";
 import {Achievement, AchievementsService} from "../../services/achievements.service";
 import {LoaderComponent} from "../loader/loader.component";
 import {CurrentDateService} from "../../services/current-date.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -26,6 +27,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     private profile_service: ProfileService,
     private avatar_service: AvatarService,
     private background_service: BackgroundService,
+    private router: Router,
   ) {
   }
 
@@ -33,7 +35,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     LoaderComponent.show_loader();
 
     this.get_info();
-    this.date_service.subscriber$.subscribe(()=>{
+    this.date_service.subscriber$.subscribe(() => {
       this.get_info();
     })
   }
@@ -43,7 +45,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     body.style.setProperty('--profile-top-color', this.background.color);
     body.style.setProperty('--edit-image-color', this.background.edit_color);
 
-    document.fonts.ready.then(()=>{
+    document.fonts.ready.then(() => {
       LoaderComponent.hide_loader();
     });
   }
@@ -56,4 +58,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     this.achievements = this.achievements_service.get_achievements();
   }
 
+  open_profile_image_chose_menu() {
+    this.router.navigate(['settings/avatar']).then();
+  }
 }
