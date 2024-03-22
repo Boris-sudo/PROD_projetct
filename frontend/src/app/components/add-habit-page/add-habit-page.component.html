@@ -2,7 +2,7 @@
   <div class="rollbar" id="rollbar">
     <div id="rollbar-block" class="rollbar__block">
       <div [id]="'date-card'+date.date.toJSON().split('T')[0]" (click)="setDate(date)"
-           [class.chosen-date]="date.date.toJSON().split('T')[0] == date_service.get_date()" class="date-card"
+           [class.chosen-date]="date.date.toJSON().split('T')[0] == watching_date" class="date-card"
            *ngFor="let date of near_dates">
         <p class="date">{{ date.date.getDate() }}</p>
         <p class="month">{{ week_days[date.date.getDay()] }}</p>

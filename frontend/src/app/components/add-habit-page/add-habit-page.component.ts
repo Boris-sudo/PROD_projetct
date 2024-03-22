@@ -40,6 +40,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
 
   public near_dates: DateCard[] = [];
   public week_days: string[] = ['mon', 'tue', 'wed', 'thu', 'fri', 'sun', 'sat'];
+  public watching_date: string = '';
 
   public ready_habits: HabitsCollectionModel[] = [];
   public selected_collection: HabitModel[] = [];
@@ -55,6 +56,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.watching_date = this.date_service.get_date();
     document.onkeyup = (e) => {
       if (e.key == 'Escape') this.closeMenu('add-habit-menu');
     };
@@ -62,6 +64,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     this.get_all_habits();
     this.get_deleted_habits();
     this.setNewHabitToDefault();
+
     // setting dates
     const delta = 15;
     for (let i = -delta; i < delta; i++) {
@@ -71,6 +74,16 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     }
     // setting ready habits
     this.ready_habits = this.ready_habits_service.get_all();
+    // subscribing to date-service
+    this.date_service.subscriber$.subscribe(()=>{
+      this.watching_date = this.date_service.get_date();
+      this.scrollToSelectedDate();
+      this.get_all_habits();
+      this.get_deleted_habits();
+      setTimeout(() => {
+        this.update_percent();
+      });
+    })
   }
 
   ngAfterViewInit(): void {
@@ -87,12 +100,12 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     for (const habit of habits) {
       habit.addDate = new Date(habit.addDate);
       habit.deletedDate = new Date(habit.deletedDate);
-      if (habit.deletedDate.toJSON().split('T')[0] > this.current_date_service.get_date() && habit.addDate.toJSON().split('T')[0] <= this.current_date_service.get_date())
+      if (habit.deletedDate.toJSON().split('T')[0] > this.watching_date && habit.addDate.toJSON().split('T')[0] <= this.watching_date)
         this.deleted_habits.push(habit);
     }
 
     for (let i = 0; i < this.deleted_habits.length; i++) {
-      this.deleted_habits[i].doneValue = this.done_value_service.get(this.current_date_service.get_date(), this.deleted_habits[i].id);
+      this.deleted_habits[i].doneValue = this.done_value_service.get(this.watching_date, this.deleted_habits[i].id);
       this.deleted_habits[i].targetValue = Number(this.deleted_habits[i].targetValue);
     }
   }
@@ -103,12 +116,13 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     this.all_habits = [];
     for (const habit of habits) {
       habit.addDate = new Date(habit.addDate);
-      if (habit.addDate.toJSON().split('T')[0] <= this.current_date_service.get_date())
+      habit.deletedDate = new Date(habit.deletedDate);
+      if (habit.addDate.toJSON().split('T')[0] <= this.watching_date)
         this.all_habits.push(habit);
     }
 
     for (let i = 0; i < this.all_habits.length; i++) {
-      this.all_habits[i].doneValue = this.done_value_service.get(this.current_date_service.get_date(), this.all_habits[i].id);
+      this.all_habits[i].doneValue = this.done_value_service.get(this.watching_date, this.all_habits[i].id);
       this.all_habits[i].targetValue = Number(this.all_habits[i].targetValue);
     }
   }
@@ -144,6 +158,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     } else if (key === 'type') {// @ts-ignore
       this.new_habit.type = value;
       if (value == 'numeric') this.new_habit.targetValue = Number(numerical_value);
+      else this.new_habit.targetValue = 1;
     }
 
     this.closeMenu(id);
@@ -209,12 +224,19 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   }
 
   openHabitMenu(habit: HabitModel) {
+    const menu = document.getElementById('habit-container' + habit.id)!;
+    if (this.watching_date != this.date_service.get_date()) {
+      menu.classList.add('cancel-opening');
+      setTimeout(()=>{
+        menu.classList.remove('cancel-opening');
+      }, 300);
+      return;
+    }
     if (this.opened_habit_id == habit.id) {
       this.closeHabitMenu();
       return;
     }
     if (this.opened_habit_id != -1) this.closeHabitMenu();
-    const menu = document.getElementById('habit-container' + habit.id)!;
     this.opened_habit_id = habit.id;
     menu.style.height = 'var(--height-opened)';
   }
@@ -248,11 +270,11 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
 
     let habit = this.deleting_habit;
     habit.addDate = (habit.addDate).toJSON().split('T')[0];
-    habit.deletedDate = (habit.deletedDate).toJSON().split('T')[0];
     this.localstorage_service.delete('habits', this.localstorage_service.convertJsonToString(habit));
     if (!delete_all && !ignore) {
       habit.deletedDate = this.current_date_service.get_date();
-      this.localstorage_service.push('deleted-habits', this.localstorage_service.convertJsonToString(habit));
+      if (habit.deletedDate > habit.addDate)
+        this.localstorage_service.push('deleted-habits', this.localstorage_service.convertJsonToString(habit));
     } else {
       this.localstorage_service.delete('deleted-habits', this.localstorage_service.convertJsonToString(habit));
     }
@@ -265,8 +287,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
 
   scrollToSelectedDate() {
     const rollbar = document.getElementById('rollbar')!;
-    const date = this.date_service.get_date();
-    const element = document.getElementById('date-card' + date)!;
+    const element = document.getElementById('date-card' + this.watching_date)!;
     const window_width = window.innerWidth < 750 ? window.innerWidth : window.innerWidth - 300;
     rollbar.scrollTo({
       left: element.offsetLeft - (window_width - 64) / 2,
@@ -275,7 +296,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   }
 
   setDate(date: DateCard) {
-    this.date_service.set_date(date.date.toJSON().split('T')[0]);
+    this.watching_date = date.date.toJSON().split('T')[0];
     this.scrollToSelectedDate();
     this.get_all_habits();
     this.get_deleted_habits();

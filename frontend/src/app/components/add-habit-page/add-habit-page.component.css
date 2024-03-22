@@ -648,3 +648,7 @@
 .select-button {
   padding: 5px 10px;
 }
+
+.cancel-opening {
+  background: var(--dropdorw-button-red) !important;
+}
