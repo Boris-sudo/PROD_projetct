@@ -12,4 +12,14 @@ export class LoaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  static show_loader() {
+    const loader = document.getElementById('loader')!;
+    loader.style.display = 'block';
+  }
+
+  static hide_loader() {
+    const loader = document.getElementById('loader')!;
+    loader.style.display = 'none';
+  }
 }
