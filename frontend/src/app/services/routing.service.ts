@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {Subject} from "rxjs";
@@ -13,13 +13,14 @@ export class RoutingService {
   constructor(
     private router: Router,
     private location: Location,
-  ) { }
+  ) {
+  }
 
   get_link(): string {
     let result = '';
     let url = window.location.href.split('/');
-    for (let i = 2; i < url.length; i++)
-      result += (i==2?'':'/') + url[i];
+    for (let i = 3; i < url.length; i++)
+      result += (i == 3 ? '' : '/') + url[i];
     return result;
   }
 
@@ -27,14 +28,9 @@ export class RoutingService {
     this.observer.next({});
   }
 
-  navigate(url: string): Promise<boolean> {
-    const result = this.router.navigate([url]);
+  async navigate(url: string): Promise<void> {
+    await this.router.navigate([url]);
     this.emit_data();
-    return result;
-  }
-
-  navigateBack(): void {
-    this.location.back();
-    this.emit_data();
+    return;
   }
 }
