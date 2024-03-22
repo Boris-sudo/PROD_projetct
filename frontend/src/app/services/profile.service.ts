@@ -3,6 +3,7 @@ import {LocalstorageMethodsService} from "./localstorage-methods.service";
 import {CurrentDateService} from "./current-date.service";
 import {HabitModel} from "../models/habit.model";
 import {DoneValueService} from "./done_value.service";
+import {AchievementsService} from "./achievements.service";
 
 export interface Profile {
   avatar_id?: number;
@@ -27,6 +28,7 @@ export class ProfileService {
     private localstorage: LocalstorageMethodsService,
     private date_service: CurrentDateService,
     private done_value_service: DoneValueService,
+    private achievement_service: AchievementsService,
   ) {
   }
 
@@ -69,16 +71,14 @@ export class ProfileService {
     this.from_localstorage();
     this.profile.streak_days!++;
     this.to_localstorage();
+    this.achievement_service.set_progress(0, this.profile.streak_days!);
   }
 
   reset_daily_streak() {
     this.from_localstorage();
     this.profile.streak_days = 0;
     this.to_localstorage();
-  }
-
-  calculate_level_xp() {
-
+    this.achievement_service.set_progress(0, this.profile.streak_days);
   }
 
   get_tasks(): HabitModel[] {

@@ -109,4 +109,11 @@ export class AchievementsService {
     }
     this.to_localstorage();
   }
+
+  set_progress(id: number, xp: number) {
+    this.from_localstorage();
+    const progress = this.achievements[id].have_progress;
+    if (progress < xp) this.add_progress(id, xp-progress);
+    this.to_localstorage();
+  }
 }
