@@ -13,6 +13,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { AchievementLevelUpComponent } from './components/achievement-level-up/achievement-level-up.component';
 import { ChoosingAvatarComponent } from './components/choosing-avatar/choosing-avatar.component';
+import { ShopComponent } from './components/shop/shop.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ChoosingAvatarComponent } from './components/choosing-avatar/choosing-a
     ProfileComponent,
     LoaderComponent,
     AchievementLevelUpComponent,
-    ChoosingAvatarComponent
+    ChoosingAvatarComponent,
+    ShopComponent
   ],
   imports: [
     BrowserModule,

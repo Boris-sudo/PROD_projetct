@@ -5,11 +5,12 @@ import {AddHabitPageComponent} from "./components/add-habit-page/add-habit-page.
 import {LoginComponent} from "./components/login/login.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {ChoosingAvatarComponent} from "./components/choosing-avatar/choosing-avatar.component";
+import {ShopComponent} from "./components/shop/shop.component";
 
 const routes: Routes = [
   {path: '', component: MainPageComponent},
   {path: 'habits', component: AddHabitPageComponent},
-  {path: 'explore', component: AddHabitPageComponent},
+  {path: 'shop', component: ShopComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'login', component: LoginComponent},
   {path: 'settings/avatar', component: ChoosingAvatarComponent},
@@ -21,7 +22,7 @@ export interface NavBarLink {
 }
 export const navBarLinks: NavBarLink[] = [
   {name: 'habits', url: 'habits'},
-  {name: 'explore', url: 'explore'},
+  {name: 'shop', url: 'shop'},
   {name: 'profile', url: 'profile'},
 ]
 
