@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {Location} from "@angular/common";
+import {Profile, ProfileService} from "../../services/profile.service";
+import {Background, BackgroundService} from "../../services/backgrounds";
+import {Avatar, AvatarService} from "../../services/avatar.service";
 
 @Component({
   selector: 'app-choosing-avatar',
@@ -6,10 +10,51 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./choosing-avatar.component.css']
 })
 export class ChoosingAvatarComponent implements OnInit {
+  public profile: Profile = {};
+  public available_backgrounds: Background[] = [];
+  public available_avatars: Avatar[] = [];
+  public chosen_avatar: Avatar = {cost:0, path:''};
+  public chosen_background: Background = {cost:0, color:'', edit_color:''};
 
-  constructor() { }
+  public current_page: string = 'Аватар';
+
+  constructor(
+    private location: Location,
+    private profile_service: ProfileService,
+    private backgrounds_service: BackgroundService,
+    private avatar_service: AvatarService,
+  ) { }
 
   ngOnInit(): void {
+    this.profile = this.profile_service.get();
+    this.available_backgrounds = this.get_available_backgrounds();
+    this.available_avatars = this.get_available_avatars();
+    this.chosen_avatar = this.avatar_service.get_by_id(this.profile.avatar_id!);
+    this.chosen_background = this.backgrounds_service.get_by_id(this.profile.background_id!);
+  }
+
+  get_available_backgrounds(): Background[] {
+    let result:Background[] = [];
+    for (const id of this.profile.available_backgrounds!)
+      result.push(this.backgrounds_service.get_by_id(id));
+    return result;
+  }
+
+  get_available_avatars(): Avatar[] {
+    let result: Avatar[] = [];
+    for (const id of this.profile.available_avatars!)
+      result.push(this.avatar_service.get_by_id(id));
+    return result;
+  }
+
+  navigateBack() {
+    this.location.back();
+  }
+
+  save_avatar() {
+    this.profile.avatar_id = this.avatar_service.get_id(this.chosen_avatar);
+    this.profile.background_id = this.backgrounds_service.get_id(this.chosen_background);
+    this.profile_service.set(this.profile);
   }
 
 }
