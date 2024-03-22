@@ -48,7 +48,7 @@
 }
 
 .power__card {
-  width:           var(--max-cash-card-width);
+  max-width:           var(--max-cash-card-width);
   border-top:      2px solid rgb(var(--border-gray));
   display:         flex;
   flex-direction:  row;
@@ -133,7 +133,7 @@
   grid-column-gap: 20px;
   align-items:     center;
   align-content:   center;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap:       wrap;
 }
 
@@ -186,7 +186,7 @@
   width:           100%;
   height:          fit-content;
   display:         flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction:  row;
   flex-wrap:       wrap;
 }
@@ -212,16 +212,26 @@
 }
 
 .card-void {
-  width:  100%;
-  height: var(--void-card-height);
-  display: flex;
+  width:           100%;
+  height:          var(--void-card-height);
+  display:         flex;
   justify-content: center;
-  align-items: center;
-  align-content: center;
+  align-items:     center;
+  align-content:   center;
 }
 
 .card-void .p {
   font-size: 25px;
+}
+
+@media screen and (max-width: 600px) {
+  .avatar-card__image {
+    --scale: var(--avatar-size--small);
+  }
+
+  .avatar-card__button {
+    width: var(--avatar-size--small);
+  }
 }
 
 :host {
@@ -231,6 +241,7 @@
   --card-image-container-width:   80px;
   --power-card-button-svg-size:   30px;
   --avatar-size:                  170px;
+  --avatar-size--small:           100px;
   --avatar-card__button-img-size: 25px;
   --bg-card-size:                 100px;
   --void-card-height:             300px;
