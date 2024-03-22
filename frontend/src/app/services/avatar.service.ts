@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Background} from "./backgrounds";
 
 export interface Avatar {
   cost: number;
@@ -10,7 +11,10 @@ export interface Avatar {
 })
 export class AvatarService {
   private avatars: Avatar[] = [
-    {cost: 0, path: '/assets/avatars/img.png'},
+    {cost: 0, path: '/assets/avatars/free1.png'},
+    {cost: 0, path: '/assets/avatars/free2.png'},
+    {cost: 0, path: '/assets/avatars/free3.png'},
+    {cost: 0, path: '/assets/avatars/free4.png'},
   ];
 
   constructor() {
@@ -22,5 +26,12 @@ export class AvatarService {
 
   get() {
     return this.avatars;
+  }
+
+  get_id(item: Avatar) {
+    for (let i = 0; i < this.avatars.length; i++)
+      if (this.avatars[i] == item)
+        return i;
+    return 0;
   }
 }
