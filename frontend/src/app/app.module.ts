@@ -12,6 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { AchievementLevelUpComponent } from './components/achievement-level-up/achievement-level-up.component';
+import { ChoosingAvatarComponent } from './components/choosing-avatar/choosing-avatar.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AchievementLevelUpComponent } from './components/achievement-level-up/a
     LoginComponent,
     ProfileComponent,
     LoaderComponent,
-    AchievementLevelUpComponent
+    AchievementLevelUpComponent,
+    ChoosingAvatarComponent
   ],
   imports: [
     BrowserModule,

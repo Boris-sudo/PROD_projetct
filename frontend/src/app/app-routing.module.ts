@@ -4,6 +4,7 @@ import {MainPageComponent} from "./components/main-page/main-page.component";
 import {AddHabitPageComponent} from "./components/add-habit-page/add-habit-page.component";
 import {LoginComponent} from "./components/login/login.component";
 import {ProfileComponent} from "./components/profile/profile.component";
+import {ChoosingAvatarComponent} from "./components/choosing-avatar/choosing-avatar.component";
 
 const routes: Routes = [
   {path: '', component: MainPageComponent},
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path: 'explore', component: AddHabitPageComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'settings/avatar', component: ChoosingAvatarComponent},
 ];
 
 export interface NavBarLink {
