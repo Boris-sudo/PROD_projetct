@@ -126,4 +126,22 @@ export class ProfileService {
     this.achievement_service.set_progress_ignore_max(2, this.profile.habits_complete!);
     this.to_localstorage();
   }
+
+  add_level_point(sign: number) {
+    const level_points = sign * 100;
+
+    this.from_localstorage();
+    this.profile.level! += level_points;
+    this.achievement_service.set_progress_ignore_max(1, this.profile.level!);
+    this.to_localstorage();
+  }
+
+  add_money(sign: number) {
+    const money = sign * 100;
+
+    this.from_localstorage();
+    this.profile.money! += money;
+    this.achievement_service.set_progress_ignore_max(3, this.profile.money!);
+    this.to_localstorage();
+  }
 }

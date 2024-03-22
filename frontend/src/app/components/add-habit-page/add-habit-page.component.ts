@@ -250,7 +250,11 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   }
 
   submitHabit(habit: HabitModel) {
-    if (habit.doneValue == habit.targetValue) this.profile_service.add_completed_habits_count(-1);
+    if (habit.doneValue == habit.targetValue) {
+      this.profile_service.add_completed_habits_count(-1);
+      this.profile_service.add_level_point(-1);
+      this.profile_service.add_money(-1);
+    }
 
     if (habit.type == 'numeric') {
       // @ts-ignore
@@ -262,7 +266,11 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
       habit.doneValue = value ? 1 : 0;
     }
 
-    if (habit.doneValue == habit.targetValue) this.profile_service.add_completed_habits_count(1);
+    if (habit.doneValue == habit.targetValue) {
+      this.profile_service.add_completed_habits_count(1);
+      this.profile_service.add_level_point(1);
+      this.profile_service.add_money(1);
+    }
 
     this.update_percent();
     this.closeHabitMenu();
