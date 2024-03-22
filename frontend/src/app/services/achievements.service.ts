@@ -62,6 +62,16 @@ export class AchievementsService {
         img_path: 'hand.svg',
         color: '',
       },
+      {
+        title: 'Богач',
+        level: 0,
+        have_progress: 0,
+        need_progress: [100,500,1000,2500,5000,10000],
+        about: 'На вашем счету $ монет.',
+        to_about: ['100','500','1000','2500','5000','10000'],
+        img_path: 'coin.svg',
+        color: '',
+      },
     ];
   }
 
