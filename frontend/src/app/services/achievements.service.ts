@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {LocalstorageMethodsService} from "./localstorage-methods.service";
+import {Subject} from "rxjs";
 
 export interface Achievement {
   title: string;
@@ -17,6 +18,9 @@ export interface Achievement {
   providedIn: 'root'
 })
 export class AchievementsService {
+  observer = new Subject();
+  public subscribers$ = this.observer.asObservable();
+
   private achievements: Achievement[] = [];
   private colors: string[] = [
     '#f4f000', '#97ea07', '#0ae750',
@@ -28,6 +32,10 @@ export class AchievementsService {
   constructor(
     private localstorage: LocalstorageMethodsService,
   ) {
+  }
+
+  emit_data(data: Achievement) {
+    this.observer.next(data);
   }
 
   defaultAchievements(): Achievement[] {
@@ -102,11 +110,12 @@ export class AchievementsService {
   add_progress(id: number, xp: number) {
     this.from_localstorage();
     this.achievements[id].have_progress += xp;
-    if (this.achievements[id].have_progress >= this.achievements[id].need_progress[this.achievements[id].level]) {
-      this.achievements[id].level++;
-      if (this.achievements[id].need_progress.length < this.achievements[id].level)
-        this.achievements[id].level--;
-    }
+    const level = this.achievements[id].level;
+    while (this.achievements[id].have_progress >= this.achievements[id].need_progress[this.achievements[id].level])
+      if (this.achievements[id].need_progress.length > this.achievements[id].level)
+        this.achievements[id].level++;
+    if (level != this.achievements[id].level)
+      this.emit_data(this.achievements[id]);
     this.to_localstorage();
   }
 

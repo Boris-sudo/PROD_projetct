@@ -11,6 +11,7 @@ import { RightBarComponent } from './components/right-bar/right-bar.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { AchievementLevelUpComponent } from './components/achievement-level-up/achievement-level-up.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     RightBarComponent,
     LoginComponent,
     ProfileComponent,
-    LoaderComponent
+    LoaderComponent,
+    AchievementLevelUpComponent
   ],
   imports: [
     BrowserModule,
