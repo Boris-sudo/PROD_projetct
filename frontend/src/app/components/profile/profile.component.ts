@@ -4,6 +4,8 @@ import {Avatar, AvatarService} from "../../services/avatar.service";
 import {LocalstorageMethodsService} from "../../services/localstorage-methods.service";
 import {Background, BackgroundService} from "../../services/backgrounds";
 import {Achievement, AchievementsService} from "../../services/achievements.service";
+import {LoaderComponent} from "../loader/loader.component";
+import {CurrentDateService} from "../../services/current-date.service";
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +20,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   public username: string = '';
 
   constructor(
+    private date_service: CurrentDateService,
     private achievements_service: AchievementsService,
     private localstorage: LocalstorageMethodsService,
     private profile_service: ProfileService,
@@ -27,25 +30,30 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    const loader = document.getElementById('loader')!;
-    loader.style.display = 'block';
+    LoaderComponent.show_loader();
 
-    this.profile = this.profile_service.get();
-    this.avatar = this.avatar_service.get_by_id(this.profile.avatar_id!);
-    this.background = this.background_service.get_by_id(this.profile.background_id!);
-    this.username = this.localstorage.get('user');
-    this.achievements = this.achievements_service.get_achievements();
-
-    document.fonts.ready.then(()=>{
-      const loader = document.getElementById('loader')!;
-      loader.style.display = 'none';
-    });
+    this.get_info();
+    this.date_service.subscriber$.subscribe(()=>{
+      this.get_info();
+    })
   }
 
   ngAfterViewInit() {
     const body = document.getElementById('body')!;
     body.style.setProperty('--profile-top-color', this.background.color);
     body.style.setProperty('--edit-image-color', this.background.edit_color);
+
+    document.fonts.ready.then(()=>{
+      LoaderComponent.hide_loader();
+    });
+  }
+
+  get_info() {
+    this.profile = this.profile_service.get();
+    this.avatar = this.avatar_service.get_by_id(this.profile.avatar_id!);
+    this.background = this.background_service.get_by_id(this.profile.background_id!);
+    this.username = this.localstorage.get('user');
+    this.achievements = this.achievements_service.get_achievements();
   }
 
 }
