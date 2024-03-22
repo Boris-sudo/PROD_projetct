@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {Router, withDebugTracing} from "@angular/router";
+import {Router} from "@angular/router";
 import {CurrentDateService} from "../../services/current-date.service";
 import {navBarLinks} from "../../app-routing.module";
 
@@ -23,13 +23,12 @@ export class RightBarComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // @ts-ignore
-    document.getElementById('current-data-input1')!.value = this.date_service.get_date();
+    document.getElementById('current-data-input')!.value = this.date_service.get_date();
     this.move_nav_background();
   }
 
   navigate(url: string) {
-    this.router.navigate([url]).then(
-      resp=>{
+    this.router.navigate([url]).then(() => {
         this.move_nav_background();
       }
     );
@@ -42,7 +41,7 @@ export class RightBarComponent implements OnInit, AfterViewInit {
     for (const rightBarLink of this.right_bar_links)
       if (rightBarLink.url == url) found = true;
     if (!found) {
-      nav_bg.style.opacity='0';
+      nav_bg.style.opacity = '0';
       setTimeout(() => {
         nav_bg.style.display = 'none';
       }, 500);
@@ -51,9 +50,9 @@ export class RightBarComponent implements OnInit, AfterViewInit {
       nav_bg.style.top = `${element.offsetTop}px`;
       nav_bg.style.left = `${element.offsetLeft}px`;
 
-      nav_bg.style.display='block';
-      setTimeout(()=>{
-        nav_bg.style.opacity='1';
+      nav_bg.style.display = 'block';
+      setTimeout(() => {
+        nav_bg.style.opacity = '1';
       })
     }
   }
@@ -82,7 +81,7 @@ export class RightBarComponent implements OnInit, AfterViewInit {
     const url = window.location.href.split('/');
     let result = '';
     for (let url_index = 3; url_index < url.length; url_index++) {
-      if (url_index!=3) result += '/';
+      if (url_index != 3) result += '/';
       result += url[url_index];
     }
     return result;

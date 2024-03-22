@@ -1,6 +1,6 @@
-<app-top-bar class="top-bar"></app-top-bar>
+<app-top-bar *ngIf="getWindowSize() <= 750" class="top-bar"></app-top-bar>
 <main class="main-content">
-  <app-right-bar class="right-bar"></app-right-bar>
+  <app-right-bar *ngIf="getWindowSize() > 750" class="right-bar"></app-right-bar>
   <div class="full-width router-outlet">
     <router-outlet></router-outlet>
   </div>
