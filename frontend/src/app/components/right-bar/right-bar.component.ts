@@ -2,6 +2,8 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {CurrentDateService} from "../../services/current-date.service";
 import {navBarLinks} from "../../app-routing.module";
+import {ProfileService} from "../../services/profile.service";
+import {LoaderComponent} from "../loader/loader.component";
 
 @Component({
   selector: 'app-right-bar',
@@ -15,8 +17,10 @@ export class RightBarComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private date_service: CurrentDateService,
+    private profile_service: ProfileService,
   ) {
   }
+
 
   ngOnInit(): void {
   }
@@ -57,24 +61,50 @@ export class RightBarComponent implements OnInit, AfterViewInit {
     }
   }
 
+
+
+  check_all_habits_done() {
+    const are_done = this.profile_service.are_all_done();
+
+    if (are_done)
+      this.profile_service.add_daily_streak();
+    else
+      this.profile_service.reset_daily_streak();
+  }
+
   chose_date() {
-    const date_input = document.getElementById('current-data-input1')!;
+    LoaderComponent.show_loader();
+    this.check_all_habits_done();
+
+    const date_input = document.getElementById('current-data-input')!;
     // @ts-ignore
     const date = date_input.value;
     if (date != '')
       this.date_service.set_date(date);
+
+    LoaderComponent.hide_loader();
   }
 
   next_day() {
+    LoaderComponent.show_loader();
+    this.check_all_habits_done();
+
     this.date_service.next_day();
     // @ts-ignore
-    document.getElementById('current-data-input1')!.value = this.date_service.get_date();
+    document.getElementById('current-data-input')!.value = this.date_service.get_date();
+
+    LoaderComponent.hide_loader();
   }
 
   prev_day() {
+    LoaderComponent.show_loader();
+    this.check_all_habits_done();
+
     this.date_service.prev_day();
     // @ts-ignore
-    document.getElementById('current-data-input1')!.value = this.date_service.get_date();
+    document.getElementById('current-data-input')!.value = this.date_service.get_date();
+
+    LoaderComponent.hide_loader();
   }
 
   get_url() {

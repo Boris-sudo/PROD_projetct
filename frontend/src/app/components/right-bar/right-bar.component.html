@@ -28,17 +28,20 @@
     <div id="nav-bg" class="nav-background"></div>
   </nav>
 
-  <div class="data-chose">
-    <svg (click)="prev_day()" style="transform: rotate(180deg);" width="30" height="30" viewBox="0 0 24 24">
-      <path
-        d="M14.5 22a.5.5 0 0 1-.5-.5V16H.5a.5.5 0 0 1-.5-.5v-7A.5.5 0 0 1 .5 8H14V2.5a.5.5 0 0 1 .863-.343l9 9.5a.5.5 0 0 1 0 .688l-9 9.5A.504.504 0 0 1 14.5 22zM1 15h13.5a.5.5 0 0 1 .5.5v4.745L22.812 12 15 3.755V8.5a.5.5 0 0 1-.5.5H1z"/>
-    </svg>
-    <span>
-      <input (change)="chose_date()" id="current-data-input" type="date" class="data-input">
-    </span>
-    <svg (click)="next_day()" width="30" height="30" viewBox="0 0 24 24">
-      <path
-        d="M14.5 22a.5.5 0 0 1-.5-.5V16H.5a.5.5 0 0 1-.5-.5v-7A.5.5 0 0 1 .5 8H14V2.5a.5.5 0 0 1 .863-.343l9 9.5a.5.5 0 0 1 0 .688l-9 9.5A.504.504 0 0 1 14.5 22zM1 15h13.5a.5.5 0 0 1 .5.5v4.745L22.812 12 15 3.755V8.5a.5.5 0 0 1-.5.5H1z"/>
-    </svg>
+  <div class="date-chose-container">
+    <p>Навигация между днями</p>
+    <div class="data-chose">
+      <svg (click)="prev_day()" style="transform: rotate(180deg);" width="30" height="30" viewBox="0 0 24 24">
+        <path
+          d="M14.5 22a.5.5 0 0 1-.5-.5V16H.5a.5.5 0 0 1-.5-.5v-7A.5.5 0 0 1 .5 8H14V2.5a.5.5 0 0 1 .863-.343l9 9.5a.5.5 0 0 1 0 .688l-9 9.5A.504.504 0 0 1 14.5 22zM1 15h13.5a.5.5 0 0 1 .5.5v4.745L22.812 12 15 3.755V8.5a.5.5 0 0 1-.5.5H1z"/>
+      </svg>
+      <span>
+        <input (change)="chose_date()" id="current-data-input" type="date" class="data-input">
+      </span>
+      <svg (click)="next_day()" width="30" height="30" viewBox="0 0 24 24">
+        <path
+          d="M14.5 22a.5.5 0 0 1-.5-.5V16H.5a.5.5 0 0 1-.5-.5v-7A.5.5 0 0 1 .5 8H14V2.5a.5.5 0 0 1 .863-.343l9 9.5a.5.5 0 0 1 0 .688l-9 9.5A.504.504 0 0 1 14.5 22zM1 15h13.5a.5.5 0 0 1 .5.5v4.745L22.812 12 15 3.755V8.5a.5.5 0 0 1-.5.5H1z"/>
+      </svg>
+    </div>
   </div>
 </main>
