@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {LocalstorageMethodsService} from "../../services/localstorage-methods.service";
 import {RoutingService} from "../../services/routing.service";
+import {LoaderComponent} from "../loader/loader.component";
 
 
 
@@ -18,6 +19,7 @@ export class MainPageComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
+    LoaderComponent.show_loader();
     // getting user
     this.user = this.localstorage.get('user');
     if (this.user == '')
@@ -25,5 +27,8 @@ export class MainPageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    document.fonts.ready.then(() => {
+      LoaderComponent.hide_loader();
+    });
   }
 }

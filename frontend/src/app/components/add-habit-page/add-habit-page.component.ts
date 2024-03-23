@@ -6,6 +6,7 @@ import {CurrentDateService} from "../../services/current-date.service";
 import {DoneValueService} from "../../services/done_value.service";
 import {ReadyHabitsService} from "../../services/ready-habits.service";
 import {ProfileService} from "../../services/profile.service";
+import {LoaderComponent} from "../loader/loader.component";
 
 interface DateCard {
   date: Date;
@@ -58,6 +59,9 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    // loader
+    LoaderComponent.show_loader();
+    // other
     this.watching_date = this.date_service.get_date();
     document.onkeyup = (e) => {
       if (e.key == 'Escape') this.closeMenu('add-habit-menu');
@@ -77,7 +81,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     // setting ready habits
     this.ready_habits = this.ready_habits_service.get_all();
     // subscribing to date-service
-    this.date_service.subscriber$.subscribe(()=>{
+    this.date_service.subscriber$.subscribe(() => {
       this.watching_date = this.date_service.get_date();
       this.scrollToSelectedDate();
       this.get_all_habits();
@@ -93,6 +97,9 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
       this.update_percent();
     });
     this.scrollToSelectedDate();
+    document.fonts.ready.then(() => {
+      LoaderComponent.hide_loader();
+    });
   }
 
   get_deleted_habits() {
@@ -110,6 +117,10 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
       this.deleted_habits[i].doneValue = this.done_value_service.get(this.watching_date, this.deleted_habits[i].id);
       this.deleted_habits[i].targetValue = Number(this.deleted_habits[i].targetValue);
     }
+
+    setTimeout(()=>{
+      this.update_percent();
+    });
   }
 
   get_all_habits() {
@@ -127,6 +138,10 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
       this.all_habits[i].doneValue = this.done_value_service.get(this.watching_date, this.all_habits[i].id);
       this.all_habits[i].targetValue = Number(this.all_habits[i].targetValue);
     }
+
+    setTimeout(()=>{
+      this.update_percent();
+    });
   }
 
   navigateBack() {
@@ -229,7 +244,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     const menu = document.getElementById('habit-container' + habit.id)!;
     if (this.watching_date != this.date_service.get_date()) {
       menu.classList.add('cancel-opening');
-      setTimeout(()=>{
+      setTimeout(() => {
         menu.classList.remove('cancel-opening');
       }, 300);
       return;

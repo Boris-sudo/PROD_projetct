@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Profile, ProfileService} from "../../services/profile.service";
 import {Avatar, AvatarService} from "../../services/avatar.service";
 import {Background, BackgroundService} from "../../services/backgrounds";
@@ -9,7 +9,7 @@ import {LoaderComponent} from "../loader/loader.component";
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.css']
 })
-export class ShopComponent implements OnInit {
+export class ShopComponent implements OnInit, AfterViewInit {
   public profile: Profile = {};
   public shop_avatars: Avatar[] = [];
   public shop_backgrounds: Background[] = [];
@@ -23,9 +23,16 @@ export class ShopComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    LoaderComponent.show_loader();
     this.profile = this.profile_service.get();
     this.get_shop_avatars();
     this.get_shop_backgrounds();
+  }
+
+  ngAfterViewInit() {
+    document.fonts.ready.then(() => {
+      LoaderComponent.hide_loader();
+    });
   }
 
   get_shop_avatars() {
