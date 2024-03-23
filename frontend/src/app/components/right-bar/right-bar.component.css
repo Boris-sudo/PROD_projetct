@@ -94,3 +94,85 @@
   font-weight:     900;
   font-family:     var(--ff-ubuntu);
 }
+
+.confirm-menu {
+  max-width:           var(--confirm-menu-width);
+  min-height:          var(--confirm-menu-height);
+  background:          var(--background-white);
+  display:             none;
+  flex-direction:      column;
+  justify-content:     center;
+  align-items:         center;
+  align-content:       center;
+  position:            absolute;
+  top:                 50%;
+  left:                50%;
+  transform:           translateX(-50%) translateY(-50%);
+  z-index:             1001;
+  padding:             10px;
+  border-radius:       16px;
+  opacity:             0;
+  transition-duration: .3s;
+}
+
+.confirm-menu__text {
+  font-size:   20px;
+  font-weight: 700;
+  font-family: var(--ff-dosis);
+  text-align:  center;
+}
+
+.confirm-menu__button-container {
+  margin-top:      20px;
+  display:         flex;
+  flex-direction:  row;
+  justify-content: space-between;
+  width:           100%;
+}
+
+.confirm-menu__button {
+  padding:             10px 20px;
+  border:              2px solid var(--border-gray);
+  border-bottom-width: 4px;
+  border-radius:       16px;
+  font-size:           20px;
+  transition-duration: .3s;
+}
+
+.confirm-menu__button:hover {
+  transform: scale(.95);
+  filter:    brightness(.8);
+}
+
+.btn-cancel {
+  color:      var(--border-gray);
+  background: transparent;
+}
+
+.btn-ok {
+  color:        var(--white);
+  background:   var(--blue);
+  border-color: var(--blue);
+}
+
+.show {
+  opacity: 1 !important;
+}
+
+#confirm-menu-background {
+  z-index:             1000;
+  position:            absolute;
+  top:                 0;
+  left:                0;
+  width:               100vw;
+  height:              100vh;
+  background:          rgb(0, 0, 0, 30%);
+  display:             none;
+  opacity:             0;
+  transition-duration: .3s;
+}
+
+:host {
+  --confirm-menu-width:  400px;
+  --confirm-menu-height: 300px;
+}

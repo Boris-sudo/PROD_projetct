@@ -45,3 +45,13 @@
     </div>
   </div>
 </main>
+
+<div id="date-switch-confirm-menu" class="confirm-menu">
+  <p class="confirm-menu__text">Если вы сейчас согласитесь продолжить вы потеряете весь свой ударный режим, так как некоторые из ваших привычек на сегодня ещё не выполнены.</p>
+  <p class="confirm-menu__text">У вас сейчас {{profile.freeze_count}} из 3 заморозок</p>
+  <div class="confirm-menu__button-container">
+    <button class="confirm-menu__button btn-cancel" (click)="close_confirm_menu()">Отменить</button>
+    <button class="confirm-menu__button btn-ok" (click)="confirm()">Продолжить</button>
+  </div>
+</div>
+<div id="confirm-menu-background"></div>

@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {CurrentDateService} from "../../services/current-date.service";
 import {navBarLinks} from "../../app-routing.module";
-import {ProfileService} from "../../services/profile.service";
+import {Profile, ProfileService} from "../../services/profile.service";
 import {LoaderComponent} from "../loader/loader.component";
 import {RoutingService} from "../../services/routing.service";
 
@@ -11,7 +11,9 @@ import {RoutingService} from "../../services/routing.service";
   styleUrls: ['./right-bar.component.css']
 })
 export class RightBarComponent implements OnInit, AfterViewInit {
+  public profile:Profile = {};
   public right_bar_links = navBarLinks;
+  private switch_date_type?: string = '';
 
   constructor(
     public router: RoutingService,
@@ -21,6 +23,7 @@ export class RightBarComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.profile = this.profile_service.get();
     this.router.subscribers$.subscribe(() => {
       this.move_nav_background();
     });
@@ -65,43 +68,80 @@ export class RightBarComponent implements OnInit, AfterViewInit {
   check_all_habits_done() {
     const are_done = this.profile_service.are_all_done();
 
-    if (are_done)
+    if (are_done) {
+      if (this.switch_date_type == 'prev') this.date_service.prev_day();
+      else if (this.switch_date_type == 'next') this.date_service.next_day();
+      else this.date_service.set_date(this.switch_date_type!);
       this.profile_service.add_daily_streak();
-    else
-      this.profile_service.reset_daily_streak();
+    } else {
+      if (this.profile.freeze_count! > 0) {
+        this.profile_service.use_freeze();
+        this.profile = this.profile_service.get();
+        this.confirm();
+      } else
+        this.show_confirm_menu();
+    }
+  }
+
+  show_confirm_menu() {
+    const menu = document.getElementById('date-switch-confirm-menu')!;
+    const bg = document.getElementById('confirm-menu-background')!;
+
+    menu.style.display = 'flex';
+    bg.style.display = 'block';
+    setTimeout(()=>{
+      menu.classList.add('show');
+      bg.classList.add('show');
+    });
+  }
+
+  close_confirm_menu() {
+    const menu = document.getElementById('date-switch-confirm-menu')!;
+    const bg = document.getElementById('confirm-menu-background')!;
+
+    menu.classList.remove('show');
+    bg.classList.remove('show');
+    setTimeout(()=>{
+      menu.style.display = 'none';
+      bg.style.display = 'none';
+    }, 300);
+  }
+
+  confirm() {
+    if (this.switch_date_type == 'prev') this.date_service.prev_day();
+    else if (this.switch_date_type == 'next') this.date_service.next_day();
+    else this.date_service.set_date(this.switch_date_type!);
+    // @ts-ignore
+    document.getElementById('current-data-input')!.value = this.date_service.get_date();
+    this.profile_service.reset_daily_streak();
+    this.close_confirm_menu();
   }
 
   chose_date() {
     LoaderComponent.show_loader();
-    this.check_all_habits_done();
 
     const date_input = document.getElementById('current-data-input')!;
     // @ts-ignore
-    const date = date_input.value;
-    if (date != '')
-      this.date_service.set_date(date);
+    this.switch_date_type = date_input.value;
+    this.check_all_habits_done();
 
     LoaderComponent.hide_loader();
   }
 
   next_day() {
     LoaderComponent.show_loader();
-    this.check_all_habits_done();
 
-    this.date_service.next_day();
-    // @ts-ignore
-    document.getElementById('current-data-input')!.value = this.date_service.get_date();
+    this.switch_date_type = 'next';
+    this.check_all_habits_done();
 
     LoaderComponent.hide_loader();
   }
 
   prev_day() {
     LoaderComponent.show_loader();
-    this.check_all_habits_done();
 
-    this.date_service.prev_day();
-    // @ts-ignore
-    document.getElementById('current-data-input')!.value = this.date_service.get_date();
+    this.switch_date_type = 'prev';
+    this.check_all_habits_done();
 
     LoaderComponent.hide_loader();
   }

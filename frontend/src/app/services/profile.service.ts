@@ -172,4 +172,10 @@ export class ProfileService {
     this.to_localstorage();
     this.add_money(0);
   }
+
+  use_freeze() {
+    this.from_localstorage();
+    this.profile.freeze_count!--;
+    this.to_localstorage();
+  }
 }
