@@ -258,6 +258,7 @@
   height:   var(--progressbar-height);
   overflow: hidden;
   position: relative;
+  border-radius: var(--progresbar-border-radius);
 }
 
 .yellow-line {
