@@ -209,8 +209,6 @@ export class ProfileService {
   }
 
   async notification() {
-    const notification_container = document.getElementById('notification-container')!;
-
     if (this.are_all_done()) return;
     alert('может уже начнете что то делать?');
   }
