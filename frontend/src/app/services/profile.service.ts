@@ -38,10 +38,10 @@ export class ProfileService {
   defaultProfile(): Profile {
     return {
       avatar_id: 0,
-      available_avatars: [0,1,2,3],
+      available_avatars: [0, 1, 2, 3],
 
       background_id: 0,
-      available_backgrounds: [0,1],
+      available_backgrounds: [0, 1],
 
       level: 0,
       money: 0,
@@ -147,5 +147,29 @@ export class ProfileService {
     this.profile.money! += money;
     this.achievement_service.set_progress_ignore_max(3, this.profile.money!);
     this.to_localstorage();
+  }
+
+  add_freeze_count(cost: number) {
+    this.from_localstorage();
+    this.profile.freeze_count!++;
+    this.profile.money! -= cost;
+    this.add_money(0);
+    this.to_localstorage();
+  }
+
+  add_avatar(id: number, cost: number) {
+    this.from_localstorage();
+    this.profile.available_avatars!.push(id);
+    this.profile.money! -= cost;
+    this.to_localstorage();
+    this.add_money(0);
+  }
+
+  add_background(id: number, cost: number) {
+    this.from_localstorage();
+    this.profile.available_backgrounds!.push(id);
+    this.profile.money! -= cost;
+    this.to_localstorage();
+    this.add_money(0);
   }
 }

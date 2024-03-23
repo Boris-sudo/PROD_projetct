@@ -48,7 +48,7 @@
 }
 
 .power__card {
-  max-width:           var(--max-cash-card-width);
+  max-width:       var(--max-cash-card-width);
   border-top:      2px solid rgb(var(--border-gray));
   display:         flex;
   flex-direction:  row;
@@ -110,6 +110,7 @@
   font-size:           20px;
   font-weight:         700;
   color:               rgb(var(--yellow-coin-color));
+  transition-duration: .3s;
 }
 
 .power__card-button .img {
@@ -130,7 +131,7 @@
   height:          fit-content;
   display:         flex;
   flex-direction:  row;
-  grid-column-gap: 20px;
+  gap: 20px;
   align-items:     center;
   align-content:   center;
   justify-content: center;
@@ -170,6 +171,7 @@
   grid-column-gap:     5px;
   cursor:              pointer;
   color:               rgb(var(--yellow-coin-color));
+  transition-duration: .3s;
 }
 
 .avatar-card__button .img {
@@ -189,6 +191,7 @@
   justify-content: center;
   flex-direction:  row;
   flex-wrap:       wrap;
+  gap: 20px;
 }
 
 .bg__card {
@@ -224,6 +227,11 @@
   font-size: 25px;
 }
 
+.invalid {
+  border-color: rgb(var(--red-color)) !important;
+  color:        rgb(var(--red-color)) !important;
+}
+
 @media screen and (max-width: 600px) {
   .avatar-card__image {
     --scale: var(--avatar-size--small);
@@ -248,6 +256,7 @@
 
   --border-gray:                  55, 70, 79;
   --blue-color:                   71, 114, 250;
+  --red-color:                    217, 0, 0;
   --yellow-coin-color:            225, 161, 0;
 }
 

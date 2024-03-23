@@ -12,6 +12,7 @@ export class ShopComponent implements OnInit {
   public profile: Profile = {};
   public shop_avatars: Avatar[] = [];
   public shop_backgrounds: Background[] = [];
+  public freeze_cost:number = 200;
 
   constructor(
     private profile_service: ProfileService,
@@ -52,8 +53,33 @@ export class ShopComponent implements OnInit {
     }
   }
 
-  buy_freeze() {
+  buy(type: string, id: number=0) {
+    if (type=='freeze' && this.profile.money! >= this.freeze_cost && this.profile.freeze_count! < 3) {
+      this.profile_service.add_freeze_count(this.freeze_cost);
+      this.profile = this.profile_service.get();
+    } else if (type == 'avatar' && this.profile.money! >= this.shop_avatars[id].cost) {
+      const cost = this.shop_avatars[id].cost;
+      id = this.avatar_service.get_id(this.shop_avatars[id]);
+      this.profile_service.add_avatar(id, cost);
+      this.profile = this.profile_service.get();
+      this.get_shop_avatars();
+    } else if (type == 'bg' && this.profile.money! >= this.shop_backgrounds[id].cost) {
+      const cost = this.shop_backgrounds[id].cost;
+      id = this.background_service.get_id(this.shop_backgrounds[id]);
+      this.profile_service.add_background(id, this.shop_backgrounds[id].cost);
+      this.profile = this.profile_service.get();
+      this.get_shop_backgrounds()
+    } else {
+      let button:HTMLElement | undefined = undefined;
+      if (type == 'freeze') button = document.getElementById('freeze-button')!;
+      if (type == 'avatar') button = document.getElementById('avatar-button'+id)!;
+      if (type == 'bg') button = document.getElementById('bg-button'+id)!;
 
+      button!.classList.add('invalid');
+      setTimeout(()=>{
+        button!.classList.remove('invalid');
+      }, 300)
+    }
   }
 
 }

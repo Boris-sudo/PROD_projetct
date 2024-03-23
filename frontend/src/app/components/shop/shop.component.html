@@ -27,15 +27,15 @@
         <div class="power__card-content">
           <div class="power__card-header-container">
             <p class="power__card-header">Заморозка</p>
-            <p class="power__card-header power__card-count">{{profile.freeze_count}}/{{3}}</p>
+            <p class="power__card-header power__card-count">{{ profile.freeze_count }}/{{ 3 }}</p>
           </div>
           <p class="power__card-about">Купленная заморозка поможет вам сохранить ударный режим даже если вы ничего в
             этот день не сделали. Заморозка используется автоматически.</p>
           <div class="power__card-button-container">
-            <button class="power__card-button">
+            <button (click)="buy('freeze')" id="freeze-button" class="power__card-button">
               Купить:
               <img class="img" src="assets/achievement-images/coin.svg" alt="coin image">
-              200
+              {{this.freeze_cost}}
             </button>
           </div>
         </div>
@@ -46,11 +46,11 @@
       <h1 class="h1">Аватар</h1>
       <div class="avatars__rollbar-container">
         <div *ngIf="shop_avatars.length > 0" class="avatars__rollbar">
-          <div class="avatar-card" *ngFor="let avatar of shop_avatars">
+          <div class="avatar-card" *ngFor="let avatar of shop_avatars; index as i;">
             <img class="avatar-card__image" [src]="avatar.path" alt="avatar image">
-            <button class="avatar-card__button">
+            <button (click)="buy('avatar', i)" [id]="'avatar-button'+i" class="avatar-card__button">
               <img class="img" src="assets/achievement-images/coin.svg" alt="coin image">
-              {{avatar.cost}}
+              {{ avatar.cost }}
             </button>
           </div>
         </div>
@@ -63,11 +63,11 @@
     <div class="block bg">
       <h1 class="h1">Фоны</h1>
       <div *ngIf="shop_backgrounds.length > 0" class="bg__container">
-        <div class="bg__card" *ngFor="let bg of shop_backgrounds">
+        <div class="bg__card" *ngFor="let bg of shop_backgrounds; index as i">
           <div class="bg__card-img" [style]="'background-color: '+bg.color+';'"></div>
-          <button class="avatar-card__button">
+          <button (click)="buy('bg', i)" [id]="'bg-button'+i" class="avatar-card__button">
             <img class="img" src="assets/achievement-images/coin.svg" alt="coin image">
-            {{bg.cost}}
+            {{ bg.cost }}
           </button>
         </div>
       </div>
