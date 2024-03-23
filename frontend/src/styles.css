@@ -64,25 +64,25 @@ img {
 }
 
 :root { /* colors[white-theme] */
-  --green:       0 128 0;
-  --blue:        71 114 250;
+  --green:       0, 128, 0;
+  --blue:        71, 114, 250;
   --red:         243, 6, 6;
-  --black:       0 0 0;
-  --white:       255 255 255;
-  --gray:        153 153 153;
-  --gray2:       55 70 79;
-  --yellow:      255 193 7;
-  --yellow2:     255 161 0;
+  --black:       0, 0, 0;
+  --white:       255, 255, 255;
+  --gray:        153, 153, 153;
+  --gray2:       55, 70, 79;
+  --yellow:      255, 193, 7;
+  --yellow2:     255, 161, 0;
 
-  --light-gray:  231 231 231;
-  --light-gray2: 185 185 185;
-  --light-blue:  192 202 239;
+  --light-gray:  231, 231, 231;
+  --light-gray2: 185, 185, 185;
+  --light-blue:  192, 202, 239;
   --light-blue2: 112, 146, 253;
-  --light-ocean: 177 212 231;
+  --light-ocean: 177, 212, 231;
 
-  --dark-gray:   85 85 85;
-  --dark-blue:   59 90 194;
-  --dark-ocean:  35 69 103;
+  --dark-gray:   85, 85, 85;
+  --dark-blue:   59, 90, 194;
+  --dark-ocean:  35, 69, 103;
 }
 
 :root {
