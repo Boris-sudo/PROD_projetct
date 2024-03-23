@@ -3,7 +3,7 @@ export interface HabitModel {
 
   title: string;
   period: 'daily' | 'weekly' | 'monthly';
-  addDate: Date;
+  addDate: Date | string;
   deletedDate: Date;
 
   type: 'boolean' | 'numeric';

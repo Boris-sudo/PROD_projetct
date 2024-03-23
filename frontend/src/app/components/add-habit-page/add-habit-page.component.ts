@@ -366,7 +366,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     this.new_habit.title = habit.title;
     this.new_habit.targetValue = habit.targetValue;
     this.new_habit.type = habit.type;
-    this.new_habit.addDate = new Date();
+    this.new_habit.addDate = this.current_date_service.get_date();
     this.new_habit.period = habit.period;
     this.new_habit.deletedDate = habit.deletedDate;
     this.new_habit.doneValue = 0;

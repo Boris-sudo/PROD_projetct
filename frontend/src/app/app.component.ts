@@ -1,12 +1,32 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription, switchMap, timer} from "rxjs";
+import {ProfileService} from "./services/profile.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'frontend';
+  subscriptions !: Subscription;
+
+  constructor(
+    private profile_service: ProfileService,
+  ) {
+  }
+
+  ngOnInit() {
+    this.subscriptions = timer(0, this.profile_service.notification_time).pipe(
+      switchMap(() => this.profile_service.notification())
+    ).subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
 
   getWindowSize() {
     return window.innerWidth;

@@ -4,6 +4,7 @@ import {CurrentDateService} from "./current-date.service";
 import {HabitModel} from "../models/habit.model";
 import {DoneValueService} from "./done_value.service";
 import {AchievementsService} from "./achievements.service";
+import {Subject} from "rxjs";
 
 export interface Profile {
   avatar_id?: number;
@@ -24,8 +25,13 @@ export interface Profile {
   providedIn: 'root'
 })
 export class ProfileService {
+  observer = new Subject()
+  public subscribers$ = this.observer.asObservable();
+
   private profile: Profile = {};
   private key: string = 'profile-info';
+
+  public notification_time = 50000;
 
   constructor(
     private localstorage: LocalstorageMethodsService,
@@ -33,6 +39,10 @@ export class ProfileService {
     private done_value_service: DoneValueService,
     private achievement_service: AchievementsService,
   ) {
+  }
+
+  emit_data() {
+    this.observer.next({});
   }
 
   defaultProfile(): Profile {
@@ -54,13 +64,15 @@ export class ProfileService {
 
   to_localstorage() {
     this.localstorage.set(this.key, JSON.stringify(this.profile));
+    this.emit_data();
   }
 
   from_localstorage() {
     let result = this.localstorage.get(this.key);
-    if (result == '') this.profile = this.defaultProfile();
-    else this.profile = JSON.parse(result);
-    this.to_localstorage();
+    if (result == '') {
+      this.profile = this.defaultProfile();
+      this.to_localstorage();
+    } else this.profile = JSON.parse(result);
   }
 
   get(): Profile {
@@ -121,21 +133,21 @@ export class ProfileService {
     return result;
   }
 
-  get_all_habits_count(): number {
+  get_all_habits(): HabitModel[] {
     const habits: HabitModel[] = this.get_tasks();
-    let result = 0;
+    let result: HabitModel[] = [];
 
     for (const habit of habits) {
-      if (habit.period == 'daily') result++;
-      else if (habit.period == 'weekly' && this.date_service.is_end_of_week()) result++;
-      else if (habit.period == 'monthly' && this.date_service.is_end_of_week()) result++;
+      if (habit.period == 'daily') result.push(habit);
+      else if (habit.period == 'weekly' && this.date_service.is_end_of_week()) result.push(habit);
+      else if (habit.period == 'monthly' && this.date_service.is_end_of_week()) result.push(habit);
     }
 
     return result;
   }
 
   are_all_done(): boolean {
-    const all_count = this.get_all_habits_count();
+    const all_count = this.get_all_habits().length;
     const solved_count: number = this.count_done();
 
     return all_count <= solved_count;
@@ -170,8 +182,8 @@ export class ProfileService {
     this.from_localstorage();
     this.profile.freeze_count!++;
     this.profile.money! -= cost;
-    this.add_money(0);
     this.to_localstorage();
+    this.add_money(0);
   }
 
   add_avatar(id: number, cost: number) {
@@ -194,5 +206,12 @@ export class ProfileService {
     this.from_localstorage();
     this.profile.freeze_count!--;
     this.to_localstorage();
+  }
+
+  async notification() {
+    const notification_container = document.getElementById('notification-container')!;
+
+    if (this.are_all_done()) return;
+    alert('может уже начнете что то делать?');
   }
 }

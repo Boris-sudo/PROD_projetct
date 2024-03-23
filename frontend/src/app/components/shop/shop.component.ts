@@ -64,6 +64,7 @@ export class ShopComponent implements OnInit, AfterViewInit {
   buy(type: string, id: number=0) {
     LoaderComponent.show_loader();
     if (type=='freeze' && this.profile.money! >= this.freeze_cost && this.profile.freeze_count! < 3) {
+      console.log(1);
       this.profile_service.add_freeze_count(this.freeze_cost);
       this.profile = this.profile_service.get();
       LoaderComponent.hide_loader();

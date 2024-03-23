@@ -27,6 +27,9 @@ export class RightBarComponent implements OnInit, AfterViewInit {
     this.router.subscribers$.subscribe(() => {
       this.move_nav_background();
     });
+    this.profile_service.subscribers$.subscribe(()=>{
+      this.profile = this.profile_service.get();
+    })
   }
 
   ngAfterViewInit(): void {
@@ -68,19 +71,21 @@ export class RightBarComponent implements OnInit, AfterViewInit {
   check_all_habits_done() {
     const are_done = this.profile_service.are_all_done();
 
-    if (are_done) {
-      if (this.switch_date_type == 'prev') this.date_service.prev_day();
-      else if (this.switch_date_type == 'next') this.date_service.next_day();
-      else this.date_service.set_date(this.switch_date_type!);
-      this.profile_service.add_daily_streak();
-    } else {
+    if (!are_done) {
       if (this.profile.freeze_count! > 0) {
         this.profile_service.use_freeze();
         this.profile = this.profile_service.get();
-        this.confirm();
-      } else
+      } else {
         this.show_confirm_menu();
+        return;
+      }
     }
+    this.profile_service.add_daily_streak();
+    if (this.switch_date_type == 'prev') this.date_service.prev_day();
+    else if (this.switch_date_type == 'next') this.date_service.next_day();
+    else this.date_service.set_date(this.switch_date_type!);
+    // @ts-ignore
+    document.getElementById('current-data-input')!.value = this.date_service.get_date();
   }
 
   show_confirm_menu() {
