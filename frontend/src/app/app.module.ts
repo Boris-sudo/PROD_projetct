@@ -14,6 +14,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { AchievementLevelUpComponent } from './components/achievement-level-up/achievement-level-up.component';
 import { ChoosingAvatarComponent } from './components/choosing-avatar/choosing-avatar.component';
 import { ShopComponent } from './components/shop/shop.component';
+import { HubComponent } from './components/hub/hub.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ShopComponent } from './components/shop/shop.component';
     LoaderComponent,
     AchievementLevelUpComponent,
     ChoosingAvatarComponent,
-    ShopComponent
+    ShopComponent,
+    HubComponent
   ],
   imports: [
     BrowserModule,

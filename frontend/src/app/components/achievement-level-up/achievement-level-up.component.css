@@ -1,8 +1,8 @@
 :host {
-  --background-color: #ffc148;
-  --background-white: #ffffff;
-  --font-black:       #000000;
-  --font-color:       #ffffff;
+  --background-color: 255 193 72;
+  --background-white: 255 255 255;
+  --font-black:       0 0 0;
+  --font-color:       255 255 255;
 
   --image-size:       500px;
 }
@@ -19,8 +19,8 @@
   width:               100vw;
   height:              100vh;
   z-index:             10000;
-  background:          var(--background-color);
-  color:               var(--font-color);
+  background:          rgba(var(--background-color));
+  color:               rgba(var(--font-color));
   padding:             30px;
   transition-duration: .3s;
 }
@@ -84,8 +84,8 @@
 .button {
   width:               100%;
   padding:             20px 0;
-  background:          var(--background-white);
-  color:               var(--font-black);
+  background:          rgba(var(--background-white));
+  color:               rgba(var(--font-black));
   font-size:           20px;
   font-weight:         700;
   border:              none;

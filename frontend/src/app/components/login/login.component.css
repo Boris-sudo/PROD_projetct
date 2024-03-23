@@ -12,7 +12,7 @@
   flex-direction:   column;
   gap:              10px;
   max-width:        var(--login-form-max-width);
-  background-color: var(--background-white);
+  background-color: rgba(var(--background-white));
   padding:          20px;
   border-radius:    20px;
   position:         relative;
@@ -20,7 +20,7 @@
 
 .title {
   font-size:      28px;
-  color:          var(--blue);
+  color:          rgba(var(--blue));
   font-weight:    600;
   letter-spacing: -1px;
   position:       relative;
@@ -37,14 +37,14 @@
   width:            var(--size);
   border-radius:    50%;
   left:             0;
-  background-color: var(--blue);
+  background-color: rgba(var(--blue));
 }
 
 .title::before {
   --size:           var(--login-title-before-size);
   width:            var(--size);
   height:           var(--size);
-  background-color: var(--blue);
+  background-color: rgba(var(--blue));
 }
 
 .title::after {
@@ -55,7 +55,7 @@
 }
 
 .message, .signin {
-  color:     var(--gray);
+  color:     rgba(var(--gray));
   font-size: 14px;
 }
 
@@ -64,11 +64,11 @@
 }
 
 .signin a {
-  color: var(--blue);
+  color: rgba(var(--blue));
 }
 
 .signin a:hover {
-  text-decoration: underline var(--blue);
+  text-decoration: underline rgba(var(--blue));
 }
 
 .flex {
@@ -86,16 +86,16 @@
   width:         100%;
   padding:       10px 10px 20px 10px;
   outline:       0;
-  border:        1px solid var(--border-gray);
+  border:        1px solid rgba(var(--border-gray));
   border-radius: 10px;
-  caret-color:   var(--caret-black);
+  caret-color:   rgba(var(--caret-black));
 }
 
 .form label .input + span {
   position:   absolute;
   left:       10px;
   top:        15px;
-  color:      grey;
+  color:      rgba(var(--gray));
   font-size:  0.9em;
   cursor:     text;
   transition: 0.3s ease;
@@ -113,22 +113,22 @@
 }
 
 .form label .input:valid + span {
-  color: var(--green);
+  color: rgba(var(--green));
 }
 
 .submit {
   border:              none;
   outline:             none;
-  background-color:    var(--blue);
+  background-color:    rgba(var(--blue));
   padding:             10px;
   border-radius:       10px;
-  color:               var(--white);
+  color:               rgba(var(--white));
   font-size:           16px;
   transition-duration: .3s;
 }
 
 .submit:hover {
-  background-color: var(--login-dblue);
+  background-color: rgba(var(--login-dblue));
 }
 
 .bg {
@@ -137,7 +137,7 @@
   left:       0;
   right:      0;
   bottom:     0;
-  background: #00000040;
+  background: rgba(var(--black), .4);
 }
 
 @keyframes pulse {

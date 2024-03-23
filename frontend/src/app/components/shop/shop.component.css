@@ -49,7 +49,7 @@
 
 .power__card {
   max-width:       var(--max-cash-card-width);
-  border-top:      2px solid rgb(var(--border-gray));
+  border-top:      2px solid rgba(var(--border-gray));
   display:         flex;
   flex-direction:  row;
   grid-column-gap: 20px;
@@ -81,11 +81,11 @@
 }
 
 .power__card-count {
-  border:              2px solid rgb(var(--blue-color));
+  border:              2px solid rgba(var(--blue-color));
   border-bottom-width: 4px;
   border-radius:       16px;
   padding:             3px 20px;
-  background:          rgb(var(--blue-color), 70%);
+  background:          rgba(var(--blue-color), 70%);
 
 }
 
@@ -98,7 +98,7 @@
 
 .power__card-button {
   padding:             5px 15px;
-  border:              2px solid rgb(var(--border-gray));
+  border:              2px solid rgba(var(--border-gray));
   border-bottom-width: 5px;
   border-radius:       16px;
   background:          transparent;
@@ -109,7 +109,7 @@
   align-content:       center;
   font-size:           20px;
   font-weight:         700;
-  color:               rgb(var(--yellow-coin-color));
+  color:               rgba(var(--yellow-coin-color));
   transition-duration: .3s;
 }
 
@@ -131,7 +131,7 @@
   height:          fit-content;
   display:         flex;
   flex-direction:  row;
-  gap: 20px;
+  gap:             20px;
   align-items:     center;
   align-content:   center;
   justify-content: center;
@@ -149,7 +149,7 @@
   --scale:             var(--avatar-size);
   width:               var(--scale);
   height:              var(--scale);
-  border:              2px solid rgb(var(--border-gray));
+  border:              2px solid rgba(var(--border-gray));
   border-bottom-width: 4px;
   border-radius:       16px;
 }
@@ -163,14 +163,14 @@
   align-content:       center;
   flex-direction:      row;
   justify-content:     center;
-  border:              2px solid rgb(var(--border-gray));
+  border:              2px solid rgba(var(--border-gray));
   border-bottom-width: 4px;
   border-radius:       16px;
   font-size:           15px;
   font-weight:         700;
   grid-column-gap:     5px;
   cursor:              pointer;
-  color:               rgb(var(--yellow-coin-color));
+  color:               rgba(var(--yellow-coin-color));
   transition-duration: .3s;
 }
 
@@ -180,10 +180,6 @@
   height:  var(--scale);
 }
 
-.bg {
-
-}
-
 .bg__container {
   width:           100%;
   height:          fit-content;
@@ -191,7 +187,7 @@
   justify-content: center;
   flex-direction:  row;
   flex-wrap:       wrap;
-  gap: 20px;
+  gap:             20px;
 }
 
 .bg__card {
@@ -208,10 +204,10 @@
   --scale:             var(--bg-card-size);
   width:               var(--scale);
   height:              var(--scale);
-  border:              2px solid rgb(var(--border-gray));
+  border:              2px solid rgba(var(--border-gray));
   border-bottom-width: 5px;
   border-radius:       16px;
-  background:          #ffffff;
+  background:          var(--white);
 }
 
 .card-void {
@@ -228,8 +224,8 @@
 }
 
 .invalid {
-  border-color: rgb(var(--red-color)) !important;
-  color:        rgb(var(--red-color)) !important;
+  border-color: rgba(var(--red-color)) !important;
+  color:        rgba(var(--red-color)) !important;
 }
 
 @media screen and (max-width: 600px) {
@@ -254,10 +250,10 @@
   --bg-card-size:                 100px;
   --void-card-height:             300px;
 
-  --border-gray:                  55, 70, 79;
-  --blue-color:                   71, 114, 250;
-  --red-color:                    217, 0, 0;
-  --yellow-coin-color:            225, 161, 0;
+  --border-gray:                  vaR(--gray2);
+  --blue-color:                   var(--blue);
+  --red-color:                    var(--red);
+  --yellow-coin-color:            var(--yellow2);
 }
 
 :host p {

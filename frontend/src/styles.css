@@ -9,11 +9,11 @@ html, body {
   scroll-behavior: smooth;
   overflow-y:      hidden;
   overflow-x:      hidden;
-  color:           var(--text-black)
+  color:           rgba(var(--text-black));
 }
 
 body {
-  background-color: var(--background-light);
+  background-color: rgba(var(--background-light));
   display:          flex;
   flex-wrap:        wrap;
   overflow-y:       scroll;
@@ -26,17 +26,17 @@ body {
 }
 
 * {
-  line-height: 100%;
-  box-sizing:  border-box;
-  margin:      0;
-  padding:     0;
-  caret-color: transparent;
-  font-family: var(--ff-raleway);
+  line-height:                 100%;
+  box-sizing:                  border-box;
+  margin:                      0;
+  padding:                     0;
+  caret-color:                 transparent;
+  font-family:                 var(--ff-raleway);
   -webkit-tap-highlight-color: transparent;
 }
 
 input {
-  caret-color: var(--caret-white);
+  caret-color: rgba(var(--caret-white));
 }
 
 li {
@@ -56,38 +56,57 @@ img {
   pointer-events:      none;
 }
 
+:root { /* fonts */
+  --ff-raleway: "Raleway", sans-serif;
+  --ff-rubik:   "Rubik", sans-serif;
+  --ff-ubuntu:  "Ubuntu", sans-serif;
+  --ff-dosis:   "Dosis", sans-serif;
+}
+
+:root { /* colors[white-theme] */
+  --green:       0 128 0;
+  --blue:        71 114 250;
+  --red:         243, 6, 6;
+  --black:       0 0 0;
+  --white:       255 255 255;
+  --gray:        153 153 153;
+  --gray2:       55 70 79;
+  --yellow:      255 193 7;
+  --yellow2:     255 161 0;
+
+  --light-gray:  231 231 231;
+  --light-gray2: 185 185 185;
+  --light-blue:  192 202 239;
+  --light-blue2: 112, 146, 253;
+  --light-ocean: 177 212 231;
+
+  --dark-gray:   85 85 85;
+  --dark-blue:   59 90 194;
+  --dark-ocean:  35 69 103;
+}
+
 :root {
-  --ff-raleway:                          "Raleway", sans-serif;
-  --ff-rubik:                            "Rubik", sans-serif;
-  --ff-ubuntu:                           "Ubuntu", sans-serif;
-  --ff-dosis:                            "Dosis", sans-serif;
+  --text-black:                var(--black);
+  --background-light:          var(--light-blue);
+  --background-white:          var(--white);
+  --background-menu:           var(--light-blue);
+  --border-gray:               var(--gray2);
+  --svg-blue-light:            var(--light-ocean);
+  --svg-blue-dark:             var(--dark-ocean);
+  --caret-white:               var(--white);
+  --caret-black:               var(--black);
+  --dropdorw-button-gray:      var(--gray);
+  --dropdorw-button-blue:      var(--blue);
+  --dropdorw-button-white:     var(--white);
+  --dropdorw-button-red:       var(--red);
+  --date-frequency-item-lgray: var(--light-gray);
+  --date-frequency-item-dgray: var(--dark-gray);
+  --date-frequency-item-lblue: var(--light-blue);
+  --date-frequency-item-dblue: var(--blue);
+  --login-dblue:               var(--dark-blue);
+}
 
-  --green:                               #008000;
-  --blue:                                #4772fa;
-  --black:                               #000000;
-  --white:                               #ffffff;
-  --gray:                                #999999;
-  --light-gray:                          #e7e7e7;
-  --red:                                 rgba(243, 6, 6, 0.4);
-  --text-black:                          var(--black);
-  --background-light:                    #c0caef;
-  --background-white:                    var(--white);
-  --background-menu:                     #9ba3be;
-  --border-gray:                         var(--gray);
-  --svg-blue-light:                      #b1dae7;
-  --svg-blue-dark:                       #234567;
-  --caret-white:                         var(--white);
-  --caret-black:                         var(--black);
-  --dropdorw-button-gray:                var(--gray);
-  --dropdorw-button-blue:                var(--blue);
-  --dropdorw-button-white:               var(--white);
-  --dropdorw-button-red:                 #ec0707;
-  --date-frequency-item-lgray:           #eeeeee;
-  --date-frequency-item-dgray:           #555555;
-  --date-frequency-item-lblue:           #d2dbff;
-  --date-frequency-item-dblue:           var(--blue);
-  --login-dblue:                         #385ac2;
-
+:root { /* sizes */
   --max-window-width:                    1440px;
   --top-bar-height:                      70px;
   --add-habit-input-width:               200px;

@@ -2,7 +2,7 @@
   width:               var(--right-bar-menu-width);
   height:              100vh;
   flex-direction:      column;
-  background:          var(--background-white);
+  background:          rgba(var(--background-white));
   transition-duration: .5s;
   padding:             10px 0 0 20px;
   z-index:             50;
@@ -48,7 +48,7 @@
   width:               100%;
   border-radius:       10px 0 0 10px;
   --margin-right:      0px !important;
-  background:          var(--background-light);
+  background:          rgba(var(--background-light));
   opacity:             0;
   transition-duration: .5s;
   display:             none;
@@ -77,7 +77,7 @@
 
 .data-input {
   font-family:   var(--ff-rubik);
-  border:        1px solid #999999;
+  border:        1px solid rgba(var(--gray));
   padding:       5px 10px;
   border-radius: 5px;
 }
@@ -98,7 +98,7 @@
 .confirm-menu {
   max-width:           var(--confirm-menu-width);
   min-height:          var(--confirm-menu-height);
-  background:          var(--background-white);
+  background:          rgba(var(--background-white));
   display:             none;
   flex-direction:      column;
   justify-content:     center;
@@ -132,7 +132,7 @@
 
 .confirm-menu__button {
   padding:             10px 20px;
-  border:              2px solid var(--border-gray);
+  border:              2px solid rgba(var(--border-gray));
   border-bottom-width: 4px;
   border-radius:       16px;
   font-size:           20px;
@@ -145,14 +145,14 @@
 }
 
 .btn-cancel {
-  color:      var(--border-gray);
+  color:      rgba(var(--border-gray));
   background: transparent;
 }
 
 .btn-ok {
-  color:        var(--white);
-  background:   var(--blue);
-  border-color: var(--blue);
+  color:        rgba(var(--white));
+  background:   rgba(var(--blue));
+  border-color: rgba(var(--blue));
 }
 
 .show {
@@ -166,7 +166,7 @@
   left:                0;
   width:               100vw;
   height:              100vh;
-  background:          rgb(0, 0, 0, 30%);
+  background:          rgba(var(--black), 30%);
   display:             none;
   opacity:             0;
   transition-duration: .3s;

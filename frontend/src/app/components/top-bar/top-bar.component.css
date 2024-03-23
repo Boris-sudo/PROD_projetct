@@ -13,8 +13,8 @@
   width:           100%;
   border-radius:   10px;
   max-width:       var(--max-window-width);
-  background:      #ffffff;
-  color:           #000000;
+  background:      rgba(var(--white));
+  color:           rgba(var(--black));
   display:         flex;
   flex-direction:  row;
   justify-content: space-between;
@@ -46,7 +46,7 @@
   bottom:              0;
   right:               0;
   z-index:             900;
-  background:          rgba(0, 0, 0);
+  background:          rgba(var(--black));
   opacity:             0;
   transition-duration: .5s;
   display:             none;
@@ -77,6 +77,6 @@
   position: absolute;
   top: 5px;
   right: 10px;
-  fill: #000;
+  fill: rgba(var(--black));
   z-index: 1000;
 }
