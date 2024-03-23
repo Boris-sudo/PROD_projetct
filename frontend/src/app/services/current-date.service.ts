@@ -46,4 +46,30 @@ export class CurrentDateService {
     currentDate.setDate(currentDate.getDate() - 1);
     this.set_date(currentDate.toJSON().split('T')[0]);
   }
+
+  get_week_start(date_string: string) {
+    let date = new Date(date_string);
+    let diff = date.getDate() - date.getDay() + (date.getDay() === 0? -6 : 1);
+    date.setDate(diff);
+    return date.toJSON().split('T')[0];
+  }
+
+  get_week_end(date_string: string) {
+    let date = new Date(date_string);
+    let diff = date.getDate() - (date.getDay() - 1) + 6;
+    date.setDate(diff);
+    return date.toJSON().split('T')[0];
+  }
+
+  get_month_start(date_string: string) {
+    let date = new Date(date_string);
+    date = new Date(date.getFullYear(), date.getMonth(), 1);
+    return date.toJSON().split('T')[0];
+  }
+
+  get_month_end(date_string: string) {
+    let date = new Date(date_string);
+    date = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    return date.toJSON().split('T')[0];
+  }
 }

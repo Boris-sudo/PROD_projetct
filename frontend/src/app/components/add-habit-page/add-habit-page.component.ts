@@ -264,7 +264,7 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
     menu.style.height = 'var(--height)';
   }
 
-  submitHabit(habit: HabitModel) {
+  submitHabitProgress(habit: HabitModel) {
     if (habit.doneValue == habit.targetValue) {
       this.profile_service.add_completed_habits_count(-1);
       this.profile_service.add_level_point(-1);
@@ -287,11 +287,12 @@ export class AddHabitPageComponent implements OnInit, AfterViewInit {
       this.profile_service.add_money(1);
     }
 
-    this.update_percent();
     this.closeHabitMenu();
     let string_value = this.localstorage_service.convertJsonArrayToString(this.all_habits);
     this.localstorage_service.set('habits', string_value);
-    this.done_value_service.setById(this.current_date_service.get_date(), habit.id, habit.doneValue);
+    this.done_value_service.setByHabit(this.current_date_service.get_date(), habit);
+
+    this.get_all_habits();
   }
 
   deleteHabit(ignore: boolean = false) {
