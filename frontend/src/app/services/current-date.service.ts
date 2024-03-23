@@ -35,6 +35,18 @@ export class CurrentDateService {
     return this.date;
   }
 
+  is_end_of_week() {
+    let date = new Date(this.get_date());
+    return date.getDay() == 0;
+  }
+
+  is_end_of_month() {
+    let date = new Date(this.get_date());
+    let month = date.getMonth();
+    date.setDate(date.getDate() + 1);
+    return date.getMonth() != month;
+  }
+
   next_day() {
     let currentDate = new Date(this.date);
     currentDate.setDate(currentDate.getDate() + 1);
@@ -55,9 +67,8 @@ export class CurrentDateService {
   }
 
   get_week_end(date_string: string) {
-    let date = new Date(date_string);
-    let diff = date.getDate() - (date.getDay() - 1) + 6;
-    date.setDate(diff);
+    let date = new Date(this.get_week_start(date_string));
+    date.setDate(date.getDate() + 6);
     return date.toJSON().split('T')[0];
   }
 

@@ -110,18 +110,35 @@ export class ProfileService {
     const habits: HabitModel[] = this.get_tasks();
     let result = 0;
 
-    for (const habit of habits)
-      if (habit.doneValue == habit.targetValue)
-        result++;
+    for (const habit of habits) {
+      if (habit.doneValue == habit.targetValue) {
+        if (habit.period == 'daily') result++;
+        else if (habit.period == 'weekly' && this.date_service.is_end_of_week()) result++;
+        else if (habit.period == 'monthly' && this.date_service.is_end_of_week()) result++;
+      }
+    }
+
+    return result;
+  }
+
+  get_all_habits_count(): number {
+    const habits: HabitModel[] = this.get_tasks();
+    let result = 0;
+
+    for (const habit of habits) {
+      if (habit.period == 'daily') result++;
+      else if (habit.period == 'weekly' && this.date_service.is_end_of_week()) result++;
+      else if (habit.period == 'monthly' && this.date_service.is_end_of_week()) result++;
+    }
 
     return result;
   }
 
   are_all_done(): boolean {
-    const habits: HabitModel[] = this.get_tasks();
+    const all_count = this.get_all_habits_count();
     const solved_count: number = this.count_done();
 
-    return habits.length == solved_count;
+    return all_count <= solved_count;
   }
 
   add_completed_habits_count(count: number) {
