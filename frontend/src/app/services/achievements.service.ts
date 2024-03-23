@@ -111,9 +111,12 @@ export class AchievementsService {
     this.from_localstorage();
     this.achievements[id].have_progress += xp;
     const level = this.achievements[id].level;
-    while (this.achievements[id].have_progress >= this.achievements[id].need_progress[this.achievements[id].level])
-      if (this.achievements[id].need_progress.length > this.achievements[id].level)
+    while (this.achievements[id].have_progress >= this.achievements[id].need_progress[this.achievements[id].level]) {
+      if (this.achievements[id].need_progress.length - 1 > this.achievements[id].level)
         this.achievements[id].level++;
+      else
+        break;
+    }
     if (level != this.achievements[id].level) {
       this.emit_data(this.achievements[id]);
     }

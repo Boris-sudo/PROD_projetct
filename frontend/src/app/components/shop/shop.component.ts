@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Profile, ProfileService} from "../../services/profile.service";
 import {Avatar, AvatarService} from "../../services/avatar.service";
 import {Background, BackgroundService} from "../../services/backgrounds";
+import {LoaderComponent} from "../loader/loader.component";
 
 @Component({
   selector: 'app-shop',
@@ -54,21 +55,25 @@ export class ShopComponent implements OnInit {
   }
 
   buy(type: string, id: number=0) {
+    LoaderComponent.show_loader();
     if (type=='freeze' && this.profile.money! >= this.freeze_cost && this.profile.freeze_count! < 3) {
       this.profile_service.add_freeze_count(this.freeze_cost);
       this.profile = this.profile_service.get();
+      LoaderComponent.hide_loader();
     } else if (type == 'avatar' && this.profile.money! >= this.shop_avatars[id].cost) {
       const cost = this.shop_avatars[id].cost;
       id = this.avatar_service.get_id(this.shop_avatars[id]);
       this.profile_service.add_avatar(id, cost);
       this.profile = this.profile_service.get();
       this.get_shop_avatars();
+      LoaderComponent.hide_loader();
     } else if (type == 'bg' && this.profile.money! >= this.shop_backgrounds[id].cost) {
       const cost = this.shop_backgrounds[id].cost;
       id = this.background_service.get_id(this.shop_backgrounds[id]);
-      this.profile_service.add_background(id, this.shop_backgrounds[id].cost);
+      this.profile_service.add_background(id, cost);
       this.profile = this.profile_service.get();
       this.get_shop_backgrounds()
+      LoaderComponent.hide_loader();
     } else {
       let button:HTMLElement | undefined = undefined;
       if (type == 'freeze') button = document.getElementById('freeze-button')!;
@@ -79,6 +84,7 @@ export class ShopComponent implements OnInit {
       setTimeout(()=>{
         button!.classList.remove('invalid');
       }, 300)
+      LoaderComponent.hide_loader();
     }
   }
 
