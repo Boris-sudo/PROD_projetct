@@ -31,7 +31,6 @@ export class ProfileService {
   private profile: Profile = {};
   private key: string = 'profile-info';
 
-  public notification_time = 50000;
 
   constructor(
     private localstorage: LocalstorageMethodsService,
@@ -206,10 +205,5 @@ export class ProfileService {
     this.from_localstorage();
     this.profile.freeze_count!--;
     this.to_localstorage();
-  }
-
-  async notification() {
-    if (this.are_all_done()) return;
-    alert('может уже начнете что то делать?');
   }
 }

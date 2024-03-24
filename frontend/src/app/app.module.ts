@@ -15,6 +15,8 @@ import { AchievementLevelUpComponent } from './components/achievement-level-up/a
 import { ChoosingAvatarComponent } from './components/choosing-avatar/choosing-avatar.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { HubComponent } from './components/hub/hub.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,16 @@ import { HubComponent } from './components/hub/hub.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
