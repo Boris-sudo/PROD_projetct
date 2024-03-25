@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { AddHabitPageComponent } from './components/add-habit-page/add-habit-page.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RightBarComponent } from './components/right-bar/right-bar.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -17,6 +17,8 @@ import { ShopComponent } from './components/shop/shop.component';
 import { HubComponent } from './components/hub/hub.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import {HttpClientModule} from "@angular/common/http";
+import {NewsletterService} from "./services/newsletter.service";
 
 @NgModule({
   declarations: [
@@ -34,20 +36,19 @@ import { environment } from '../environments/environment';
     HubComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-    }),
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
   ],
-  providers: [],
+  providers: [
+    NewsletterService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

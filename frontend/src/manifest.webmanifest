@@ -1,6 +1,9 @@
 {
+  "manifest_version": 3,
   "name": "frontend",
   "short_name": "frontend",
+  "version": "1.0.0",
+  "description": "A basic example extension with only required keys",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
@@ -55,5 +58,12 @@
       "type": "image/png",
       "purpose": "maskable any"
     }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "host_permissions": [
+    "https://*.example.com/",
+    "http://localhost:4200/"
   ]
 }

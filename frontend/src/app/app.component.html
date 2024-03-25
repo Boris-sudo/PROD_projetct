@@ -2,6 +2,10 @@
 <main class="main-content">
   <app-right-bar *ngIf="getWindowSize() > 750" class="right-bar"></app-right-bar>
   <div class="full-width router-outlet">
+    <button class="button button-primary" (click)="subscribeToNotifications()"
+            [disabled]="sub">Subscribe</button>
+
+    <button class="button button-danger" (click)="sendNewsletter()">Send</button>
     <router-outlet></router-outlet>
   </div>
 </main>
